@@ -103,17 +103,6 @@
 					</li>
 					<li>
 						<a href="#" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-calendar1"></span><span class="mtext">Calendar</span>
-						</a>
-					</li>
-					
-					<li>
-						<a href="#" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-diagram"></span><span class="mtext">Sitemap</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-diagram"></span><span class="mtext">DEMO</span>
 						</a>
 					</li>

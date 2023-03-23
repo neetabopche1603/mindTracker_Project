@@ -1,5 +1,5 @@
  <!--footer start-->
- <footer class="footer widget-footer ttm-textcolor-white clearfix">
+ <footer class="footer widget-footer ttm-textcolor-white clearfix" >
             <div class="first-footer">
                 <div class="container">  
                     <div class="row footer-box">

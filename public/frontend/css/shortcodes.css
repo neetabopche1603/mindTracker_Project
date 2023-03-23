@@ -867,7 +867,8 @@
 .ttm-fid.inside.style2 .ttm-fid-icon-wrapper i {
     font-size: 50px;
     padding: 18px 20px;
-    color: #4b4d75;
+    /* color: #4b4d75; */
+    color: #FFC940;
     border-radius: 7px;
     box-shadow: 0 0 9px 0 rgba(75,77,117,.1);
 }
@@ -1196,7 +1197,8 @@
     transition: all 0.3s ease 0s;
 }
 .featured-icon-box.style3 .box-plus-icon a {
-    color: #4b4d75;
+    /* color: #4b4d75; */
+    color: #705DB4;
     text-align: center;
     font-size: 22px;
     line-height: 42px;
@@ -2068,7 +2070,8 @@ div:hover > .ttm-box-view-overlay:before, div:hover > .ttm-box-view-content-inne
     font-weight: 600;
     letter-spacing: .5px;
     font-family: 'IBM Plex Sans', sans-serif;
-    color: #4b4d75;
+    /* color: #4b4d75; */
+    color: #705DB4;
 }
 .ttm-progress-bar .progress-bar-percent {
     position: absolute;
@@ -2597,7 +2600,8 @@ div:hover > .ttm-box-view-overlay:before, div:hover > .ttm-box-view-content-inne
     -o-transition: color 0s ease-in-out;
     transition: color 0s ease-in-out;
     font-family: "IBM Plex Sans",Arial,Helvetica,sans-serif;
-    color: #4b4d75;
+    /* color: #4b4d75; */
+    color: #705DB4;
 }
 .accordion .toggle.ttm-style-befault .toggle-title a:after {
     top: 40%;

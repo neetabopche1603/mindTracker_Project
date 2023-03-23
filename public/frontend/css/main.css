@@ -120,7 +120,8 @@ select{
     border-radius: 0;
     vertical-align: middle;
     width: 100%;
-    color: #8093a8;
+    /* color: #8093a8; */
+    color: #705DB4;
     padding: 12px 15px;
     border-radius: 0;
     font-weight: 400;
@@ -204,11 +205,11 @@ body {
     font-weight: 400;
     font-size: 16px;
     line-height: 26px;
-    color: #8889ac;
+    color: #705DB4;
     font-family: 'Nunito Sans', sans-serif;
 }
 
-h1, h2, h3, h4, h5, h6{ font-family: "IBM Plex Sans",Arial,Helvetica,sans-serif; margin-bottom: 15px;font-weight: 700;color: #4b4d75;}
+h1, h2, h3, h4, h5, h6{ font-family: "IBM Plex Sans",Arial,Helvetica,sans-serif; margin-bottom: 15px;font-weight: 700;color:#705DB4;}
 h1 { font-size: 40px; line-height: 45px; }
 h2 { font-size: 35px; line-height: 43px; }
 h3 { font-size: 30px; line-height: 38px; }
@@ -232,7 +233,8 @@ body .page.sidebar-true .site-main {
     padding: 0;
     background-color: #fff;
 }
-a { color: #343c5c; }
+/* a { color: #343c5c; } */
+ a { color: #705DB4; };
 a, img {
     -webkit-transition: all 0.3s ease 0s;
     -moz-transition: all 0.3s ease 0s;
@@ -301,7 +303,8 @@ a, img {
 
 .ttm_quotebox blockquote {
     background-color: #fff;
-    color: #4b4d75;
+    /* color: #4b4d75; */
+     color: #705DB4;
     font-family: 'IBM Plex Sans', sans-serif;
     font-size: 23px;
     line-height: 35px;
@@ -316,7 +319,7 @@ a, img {
     -moz-box-shadow: 0 0 9px 0 rgba(75,77,117,.1);
     box-shadow: 0 0 9px 0 rgba(75,77,117,.1);
     position: relative;
-    border-color: #b07ab4;
+    border-color: #FFC940;
 }
 .ttm_quotebox blockquote:after {
     position: absolute;
@@ -689,7 +692,7 @@ nav.main-menu ul.menu li.active > a i,
 .ttm-blog-classic .entry-header .entry-title a:hover,
 .widget ul.ttm-recent-post-list>li> .post-detail a:hover,
 .coupon_toggle .coupon_code:before, #payment .payment_box:before {
-    color: #b07ab4;
+    color: #FFC940;
 }
 
 /** Skin-bg-color **/
@@ -762,7 +765,7 @@ article.ttm-blog-single .ttm-box-post-date,
 .product:hover .ttm-shop-icon .product-btn:hover, .ttm-single-product-details ul.tabs li a:before, 
 .ttm-tabs.ttm-tab-style-01 ul.tabs li a, .pagination-block .page-numbers:hover, 
 .pagination-block .page-numbers.current, #totop.top-visible {
-    background-color: #b07ab4;
+    background-color: #FFC940;
 }
 
 /** Skin-border-color **/
@@ -783,7 +786,7 @@ article.ttm-blog-single .ttm-box-post-date,
 :not(.ttm-bgcolor-darkgrey) .ttm-textcolor-skincolor a, :not(.ttm-bgcolor-darkgrey) .ttm-textcolor-skincolor i,
 .testimonials-nav .slick-current.testimonial-author_info .testimonial-avatar img,
 .widget .tagcloud a:hover {
-    border-color: #b07ab4;
+    border-color: #FFC940;
 }
 
 .ttm-bgcolor-darkgrey .tooltip-top:before, .ttm-bgcolor-darkgrey .tooltip:before,
@@ -793,18 +796,18 @@ article.ttm-blog-single .ttm-box-post-date,
 .ttm-bgcolor-grey .tooltip-top:before, .ttm-bgcolor-grey .tooltip:before, .conatact-section .tooltip-top:before, 
 .ttm-bgcolor-grey [data-tooltip]:before, .header_search .header_search_content, nav.main-menu,  
 article.ttm-blog-classic, #payment .payment_box, .coupon_toggle .coupon_code {
-    border-top-color: #b07ab4 !important;
+    border-top-color: #FFC940 !important;
 }
 
 .ttm-blog-single blockquote {
-    border-left-color: #b07ab4 !important;
+    border-left-color: #FFC940 !important;
 }
 
 .ttm-bgcolor-darkgrey .tooltip-bottom:before,
 .featured-icon-box.icon-align-top-content.style2:before,
 .featured-icon-box.icon-align-top-content.style6:before,
 .header_search .header_search_content:before {
-    border-bottom-color: #b07ab4;
+    border-bottom-color: #FFC940;
 }
 
 /** 2.Darkgrey-color **/
@@ -855,7 +858,8 @@ nav.main-menu ul.menu li ul.mega-submenu li a,
 .featured-imagebox-post.style1 .featured-content .featured-title h5, 
 .featured-imagebox-post.style1 .featured-content .featured-title h5 a,  
 .ttm-tabs.ttm-tab-style-01 ul.tabs li a i {
-    color: #5a5c82;
+    /* color: #5a5c82; */
+     color: #705DB4;
 }
 
 /** DarkGrey-bg-color **/
@@ -886,7 +890,8 @@ nav.main-menu ul.menu li ul.mega-submenu li a,
 .featured-icon-box.icon-align-top-content.style5 .ttm-btn:after ,
 .featured-icon-box.icon-align-top-content.style5 .ttm-btn i,
 .product:hover .ttm-shop-icon .product-btn {
-  background-color: #5a5c82;
+  /* background-color: #5a5c82; */
+  background-color: #705DB4; 
 }
 
 .ttm-icon.ttm-icon_element-border.ttm-icon_element-color-darkgrey,
@@ -898,12 +903,14 @@ a.ttm-btn.ttm-btn-style-fill.ttm-btn-color-white:hover,
 .ttm-btn.ttm-btn-style-border:hover,
 .ttm-btn.ttm-btn-style-border.ttm-btn-color-dark:hover,
 .tooltip-top:before, .tooltip:before, [data-tooltip]:before {
-    border-color: #5a5c82;
+    /* border-color: #5a5c82; */
+    border-color: #705DB4;
 }
 
 .ttm-bgcolor-skincolor .tooltip-top:before, .ttm-bgcolor-skincolor .tooltip:before, 
 .ttm-bgcolor-skincolor [data-tooltip]:before, .tooltip-top:before, .tooltip:before, [data-tooltip]:before {
-    border-top-color: #5a5c82 !important;
+    /* border-top-color: #5a5c82 !important; */
+    border-top-color: #705DB4 !important;
 }
 
 
@@ -1151,7 +1158,7 @@ ul.social-icons {
     height: 35px;
     text-align: center;
     line-height: 35px;
-    color: #8889ac;
+    color: #705DB4;
     border: 1px solid #e6e8ec;
     border-radius: 5px;
     margin-right: 0;
@@ -1319,7 +1326,7 @@ ul.social-icons {
     z-index: 1;
     color: inherit;
     box-shadow: 0 0 10px 0 rgba(0, 43, 92, 0.08);
-    border: 1px solid #8889ac;
+    border: 1px solid #705DB4;
     border-radius: 5px;
     opacity:0;
     -webkit-transform: translate(0, -50%);
@@ -1375,7 +1382,8 @@ ul.social-icons {
 .slick_slider.slick-arrows-style1 .slick-next:before {
     font-family: 'FontAwesome';
     font-size: 15px;
-    color: #4b4d75;
+    /* color: #4b4d75; */
+     color:  #705DB4; 
     line-height: 16px;
 }
 .slick_slider.slick-arrows-style1 .slick-prev:before {
@@ -1463,7 +1471,7 @@ ul.social-icons {
     margin-left: 0;
     font-size: 14px;
 }
-.top_bar .social-icons li a { min-width: auto;color: #8889ac; }
+.top_bar .social-icons li a { min-width: auto;color: #705DB4; }
 
 .site-header-menu-inner {
     padding-left: 55px;
@@ -1520,7 +1528,7 @@ ul.social-icons {
     padding-left: 2px;
 }
 .header_search_content button.close-search i {
-   color: #8889ac;
+   color: #705DB4;
 }
 .header_search .search_btn.open i {
     font-size:22px;
@@ -1567,7 +1575,7 @@ ul.social-icons {
     top: 26%;
     z-index: 2;
 }
-.header_search .header_search_content .close_btn i { color: #8889ac; }
+.header_search .header_search_content .close_btn i { color: #705DB4; }
 .header_search .header_search_content p {    
     display: block;   
     clear: both;    
@@ -1577,7 +1585,7 @@ ul.social-icons {
     -webkit-transition: all 0.6s ease 0s;    
     -o-transition: all 0.6s ease 0s;    
     transition: all 0.6s ease 0s;  
-    color: #8889ac;
+    color: #705DB4;
 }
 .header_search .header_search_content.on { visibility: visible;opacity: 1;transform: translateY(0);z-index: 999; }
 .header_search #search_query_top {
@@ -1586,7 +1594,8 @@ ul.social-icons {
     margin: 0;
     border-radius: 0;
     padding: 0 60px 15px 0;
-    color: #8a91ac;
+    /* color: #8a91ac; */
+    color: #705DB4;
     background: 0 0;
     font-weight: 500;
     font-size: 24px;
@@ -1604,7 +1613,7 @@ nav.main-menu ul.menu li ul.mega-submenu li:hover > a:not(.mega-menu-link) {
     padding-left: 14px;
 }
 nav.main-menu ul.menu ul.mega-submenu li > a:not(.mega-menu-link):before {
-    color: #b07ab4;
+    color: #FFC940;
     font-family: "FontAwesome";
     display: inline;
     font-size: 24px;
@@ -1627,7 +1636,7 @@ nav.main-menu ul.menu li ul.mega-submenu li a:not(.mega-menu-link) {
 nav.main-menu ul.menu li ul.mega-submenu li a span {
     display: inline!important;
     padding: 5px 9px;
-    background: #b07ab4;
+    background: #FFC940;
     color: #fff!important;
     text-shadow: none;
     border-radius: 5px;
@@ -1648,7 +1657,7 @@ nav.main-menu ul.menu li ul.mega-submenu li a span:before {
     position: absolute;
     pointer-events: none;
     border-color: rgba(255,255,255,0);
-    border-right-color: #b07ab4;
+    border-right-color: #FFC940;
     border-width: 5px;
     margin-top: -5px;
 }
@@ -1694,7 +1703,8 @@ nav.main-menu ul.menu li ul.mega-submenu li a span:before {
   9. Footer
 ------------------------*/
 .footer {
-    background-image: url(../images/footer-bg.jpg);
+    /* background-image: url(../images/footer-bg.jpg); */
+    background-color:  #705DB4;
     background-position: center bottom;
     background-size: cover;
     background-repeat: no-repeat;
@@ -1835,7 +1845,7 @@ nav.main-menu ul.menu li ul.mega-submenu li a span:before {
     font-size: 7px;
     width: 7px;
     height: 1px;
-    background-color: #8889ac;
+    background-color: #705DB4;
 }
 .widget ul#menu-footer-quick-links li {
     display: inline-block;
@@ -2041,7 +2051,7 @@ ul.footer-nav-menu li:last-child:after {
     height: 35px;
     text-align: center;
     line-height: 35px;
-    color: #8889ac;
+    color: #705DB4;
     border: 1px solid #e6e8ec;
     border-radius: 5px;
     margin-right: 0;
@@ -2072,7 +2082,8 @@ ul.footer-nav-menu li:last-child:after {
     left: 40px;
     font-weight: 600;
     font-style: normal;
-    color: #4b4d75;
+    /* color: #4b4d75; */
+    color: #705DB4;
 }
 .ttm-team-member-single-content .ttm-short-desc cite:before { content: "\2014\00a0"; }
 .ttm-team-member-single-content h3, .ttm-team-member-content-about h3 { 
@@ -2207,7 +2218,8 @@ ul.footer-nav-menu li:last-child:after {
 .ttm-pf-detailbox-list li span:not(.ttm-pf-right-details) {
     margin-left: 40px;
     position: relative;
-    color: #4b4d75;
+    /* color: #4b4d75; */
+    color: #705DB4;
     font-weight: 600;
     margin-right: 5px;
     flex: 0 0 33.333333%;
@@ -2264,7 +2276,9 @@ ul.footer-nav-menu li:last-child:after {
     width: 36px;
     line-height: 36px;
     border-radius: 5px;
-    color: #4b4d75;
+    /* color: #4b4d75; */
+    color: #705DB4;
+
 }
 
 
@@ -2415,7 +2429,8 @@ article.ttm-blog-classic:hover .ttm-post-featured-wrapper .ttm-post-featured:aft
     min-height: 130px;
     border-left: 5px solid;
     z-index: 1;
-    color: #7b8095;
+    /* color: #7b8095; */
+     color: #fff;
     text-align: center;
     border-radius: 10px;
 }

@@ -65,15 +65,22 @@ Route::get('dashboard', function () {
 });
 // =====================DEMO FILE ROUTE START========================
 Route::get('demo', function () {
-    return view('backend.demo.demo');
-})->name('demo.demo');;
+    return view('backend.demo.index');
+})->name('demo.demo');
 Route::get('add', function () {
     return view('backend.demo.add');
 })->name('demo.add');
 Route::get('edit', function () {
     return view('backend.demo.edit');
 })->name('demo.edit');
-    
-    // =====================DEMO FILE ROUTE END========================
+
+// =====================DEMO FILE ROUTE END========================
 
 // =================BACK-END ROUTES END=======================
+
+// =================BACK-END ROUTES START=====================
+// =================THERAPIST ROUTES END=======================
+Route::get('therapist/dashboard', function () {
+    return view('therapistPanels.dashboard');
+})->name('therapistPanels.dashboard');
+// =================THERAPIST ROUTES END=======================

@@ -5,7 +5,8 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 :root {
-  --blue:#1b00ff;
+  /* --blue:#1b00ff; */
+ --blue:#705DB4; 
   --indigo:#6610f2;
   --purple:#6f42c1;
   --pink:#e83e8c;
@@ -18,7 +19,8 @@
   --white:#fff;
   --gray:#6c757d;
   --gray-dark:#343a40;
-  --primary:#1b00ff;
+  /* --primary:#1b00ff; */
+  --primary:#705DB4;
   --secondary:#6c757d;
   --success:#28a745;
   --info:#17a2b8;
@@ -124,7 +126,8 @@ sup {
   top: -.5em; }
 
 a {
-  color: #1b00ff;
+  /* color: #1b00ff; */
+   color: #705DB4;
   text-decoration: none;
   background-color: transparent; }
 
@@ -2153,13 +2156,20 @@ a.btn.disabled, fieldset:disabled a.btn {
 
 .btn-primary {
   color: #fff;
-  background-color: #1b00ff;
-  border-color: #1b00ff; }
+  /* background-color: #1b00ff;
+  border-color: #1b00ff;  */
+    background-color: #705DB4;
+  border-color: #705DB4; 
+}
 
 .btn-primary:hover {
-  color: #fff;
-  background-color: #1502bd;
-  border-color: #0062cc; }
+  /* color: #fff; */
+  color: #705DB4;
+  /* background-color: #1502bd;
+  border-color: #0062cc; */
+   background-color: #fff;
+  border-color: #705DB4; } 
+
 
 .btn-primary.focus, .btn-primary:focus {
   color: #fff;
@@ -8292,8 +8302,14 @@ yx-axis
 .mCSB_scrollTools_vertical.mCSB_scrollTools_onDrag_expand .mCSB_draggerRail,
 .mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_dragger_bar,
 .mCSB_scrollTools_horizontal.mCSB_scrollTools_onDrag_expand .mCSB_draggerRail {
-  -webkit-transition: width .2s ease-out .2s, height .2s ease-out .2s,  margin-left .2s ease-out .2s, margin-right .2s ease-out .2s,  margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s, opacity .2s ease-in-out, background-color .2s ease-in-out;
-  transition: width .2s ease-out .2s, height .2s ease-out .2s,  margin-left .2s ease-out .2s, margin-right .2s ease-out .2s,  margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s, opacity .2s ease-in-out, background-color .2s ease-in-out; }
+  -webkit-transition: width .2s ease-out .2s, height .2s ease-out .2s, 
+ margin-left .2s ease-out .2s, margin-right .2s ease-out .2s, 
+ margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s,
+ opacity .2s ease-in-out, background-color .2s ease-in-out;
+  transition: width .2s ease-out .2s, height .2s ease-out .2s, 
+ margin-left .2s ease-out .2s, margin-right .2s ease-out .2s, 
+ margin-top .2s ease-out .2s, margin-bottom .2s ease-out .2s,
+ opacity .2s ease-in-out, background-color .2s ease-in-out; }
 
 /* 
 ------------------------------------------------------------------------------------------------------------------------
