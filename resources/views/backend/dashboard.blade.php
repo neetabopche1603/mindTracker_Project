@@ -1,7 +1,8 @@
 @extends('partials.backend.app')
-@section('adminTitle','Dashboard')
+@section('adminTitle','Adminstrator Dashboard')
 @section('container')
 <div class="card-box pd-20 height-100-p mb-30">
+	@include('partials.alertMessages')
 	<div class="row align-items-center">
 		<div class="col-md-4">
 			<img src="{{asset('backend/vendors/images/banner-img.png')}}" alt="">

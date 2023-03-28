@@ -1,6 +1,10 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminAuthController;
+use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Therapist\TherapistAuthController;
+use App\Http\Controllers\Therapist\TherapistHomeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,8 +31,6 @@ Route::get('/login', function () {
 Route::get('/register', function () {
     return view('auth.frontend.signup');
 });
-
-
 
 Route::controller(HomeController::class)->group(function () {
     // Index(HOME) Page Route
@@ -60,9 +62,53 @@ Route::controller(HomeController::class)->group(function () {
 
 
 // =================BACK-END ROUTES START=======================
-Route::get('dashboard', function () {
-    return view('backend.dashboard');
+
+Route::prefix('admin')->group(function () {
+    // ADMIN AUTH ROUTES START
+    Route::controller(AdminAuthController::class)->group(function () {
+        Route::get('login', 'adminLoginView')->name('admin.loginGet');
+        Route::post('login', 'adminLogin')->name('admin.loginPost');
+
+        Route::get('logout', function () {
+            session()->forget('adminUser_name');
+            return redirect()->route('admin.loginGet');
+        })->name('admin.logout');
+    });
+    // ADMIN AUTH ROUTES END
+
+    // ==============ADMIN HOME CONTROLLER ROUTE START================
+    Route::controller(AdminHomeController::class)->group(function () {
+        Route::get('dashboard', 'dashboard')->name('admin.dashboard');
+    });
+    // ==============ADMIN HOME CONTROLLER ROUTE START================
+
+});   //ADMIN PREFIX CLOSEUP
+
+
+
+// ========THERAPIST ROUTES START===========
+Route::prefix('therapist')->group(function () {
+    // THRAPIST AUTH CONTROLLER ROUTE START
+         Route::controller(TherapistAuthController::class)->group(function () {
+            
+    }); // THRAPIST AUTH CONTROLLER ROUTE END
 });
+
+
+Route::group(['prefix' => 'therapist', 'middleware' => ['auth']], function () {
+    // THERAPIST HOME CONTROLLER ROUTE START
+    Route::controller(TherapistHomeController::class)->group(function(){
+        Route::get('dashboard', 'dashboard')->name('therapist.dashboard');
+    });  // THERAPIST HOME CONTROLLER ROUTE END
+
+});  //THERAPIST PREFIX AND MIDDLEWARE CLOSEUP
+
+// ===========THERAPIST ROUTES END======
+
+
+
+
+
 // =====================DEMO FILE ROUTE START========================
 Route::get('demo', function () {
     return view('backend.demo.index');
@@ -73,14 +119,4 @@ Route::get('add', function () {
 Route::get('edit', function () {
     return view('backend.demo.edit');
 })->name('demo.edit');
-
 // =====================DEMO FILE ROUTE END========================
-
-// =================BACK-END ROUTES END=======================
-
-// =================BACK-END ROUTES START=====================
-// =================THERAPIST ROUTES END=======================
-Route::get('therapist/dashboard', function () {
-    return view('therapistPanels.dashboard');
-})->name('therapistPanels.dashboard');
-// =================THERAPIST ROUTES END=======================

@@ -44,7 +44,6 @@
 <body>
     <!--page start-->
     <div class="page">
-
         @include('partials.frontend.header')
         @yield('content')
         @include('partials.frontend.footer')

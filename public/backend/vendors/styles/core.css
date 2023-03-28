@@ -7864,10 +7864,15 @@ a.bg-dark:focus, a.bg-dark:hover, button.bg-dark:focus, button.bg-dark:hover {
   color: #fff !important; }
 
 .text-primary {
-  color: #1b00ff !important; }
+  /* color: #1b00ff !important; */
+  color: #705DB4 !important;
+ }
 
 a.text-primary:focus, a.text-primary:hover {
-  color: #0056b3 !important; }
+  /* color: #0056b3 !important;  */
+  color: #fcce58 !important; 
+
+}
 
 .text-secondary {
   color: #6c757d !important; }

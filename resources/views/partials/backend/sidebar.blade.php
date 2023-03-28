@@ -109,14 +109,15 @@
 					
 					<li>
 						<a href="#" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-diagram"></span><span class="mtext">Sitemap</span>
-						</a>
-					</li>
-					<li>
-						<a href="#" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-diagram"></span><span class="mtext">DEMO</span>
 						</a>
 					</li>
+					<li>
+						<a href="{{route('admin.logout')}}" onclick="return confirm('Are you Sure Logout this site')" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-diagram"></span><span class="mtext">Logout</span>
+						</a>
+					</li>
+
 					
 				</ul>
 			</div>

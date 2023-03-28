@@ -19,6 +19,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('google_id')->nullable();
+            $table->tinyInteger('type')->comment('1= Therapist, 0=User');
+            $table->string('onboarding_ques_ans')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

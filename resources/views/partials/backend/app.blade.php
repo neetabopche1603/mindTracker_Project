@@ -1,3 +1,10 @@
+@if (!session()->get('adminUser_name'))
+<script>
+	window.location.href = "{{route('admin.loginGet')}}";
+	return false;
+</script>
+@endif
+
 <!DOCTYPE html>
 <html>
 

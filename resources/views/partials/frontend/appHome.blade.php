@@ -72,9 +72,9 @@
                                         <div class="top_bar_icon"><i class="fa fa-envelope-o"></i></div>Mail:
                                         <a href="mailto:contact@zenista-themes.com">contact@zenista-themes.com</a>
                                     </div>
-                                    <div class="top_bar_contact_item float-right">
+                                    <!-- <div class="top_bar_contact_item float-right">
                                         <a class="ttm-btn ttm-btn-size-xs ttm-btn-shape-rounded ttm-btn-style-fill ttm-btn-color-skincolor" href="#">Get A Quote</a>
-                                    </div>
+                                    </div> -->
                                     <div class="top_bar_contact_item float-right">
                                         <ul class="social-icons sub-menu float-right" style="    margin-right: 22px">
                                             <li><a href="#"><i class="fa fa-facebook"></i></a></li>
@@ -153,7 +153,7 @@
                                     </ul>
                                 </nav>
                                 <div class="header_extra d-flex flex-row align-items-center justify-content-end">
-                                    <div class="header_search">
+                                    <!-- <div class="header_search">
                                         <a href="#" class="btn-default search_btn"><i class="ti ti-search"></i></a>
                                         <div class="header_search_content">
                                             <div class="header_search_content_inner">
@@ -165,9 +165,9 @@
                                                 </form>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> -->
                                     <div class="header_btn">
-                                        <a class="ttm-btn ttm-btn-size-xs ttm-btn-shape-rounded ttm-btn-style-border ttm-btn-color-white" style="background-color: z;" href="#">APPOINTMENT!</a>
+                                        <a class="ttm-btn ttm-btn-size-xs ttm-btn-shape-rounded ttm-btn-style-border ttm-btn-color-white" style="background-color: z;" href="#"><b>SIGN IN</b></a>
                                     </div>
                                 </div>
                             </div><!-- site-navigation end-->
@@ -180,7 +180,26 @@
                         <rs-module-wrap id="rev_slider_2_1_wrapper" data-source="gallery">
                             <rs-module id="rev_slider_2_1" data-version="6.1.2" class="rev_slider_2_1_height">
 
-                                <rs-slides>
+                                <!-- <div class="row" style="margin-top: 50px;">
+                                <div class="col-4">
+                                    <h1 class="text-light">This Is For <br> Curious Minds</h1>
+                                    <div>
+                                    <p class="text-light">Consequat nisl vel pretium lectus quam. In nulla posuere sollicitudin aliquam. Risus nec feugiat in fermentum posuere urna nec tincidunt praesent. Amet est placerat in egestas erat imperdiet. Sem fringilla ut morbi tincidunt augue</p>
+                                    </div>
+                                    </div>
+
+                                    <div class="col-8">
+                                    
+                                    </div>
+                                </div> -->
+
+
+
+
+
+
+
+                                 <rs-slides>
 
                                     <rs-slide data-key="rs-1" data-title="Slide" data-thumb="{{asset('frontend/images/slides/slider-mainbg-03.jpg')}}" data-anim="ei:d;eo:d;s:d;r:0;t:zoomout;sl:100;">
 
@@ -248,8 +267,6 @@
                     </div>
                 </div>
                 <!--END REVOLUTION SLIDER-->
-
-
             </div>
         </header>
         <!--header end-->
