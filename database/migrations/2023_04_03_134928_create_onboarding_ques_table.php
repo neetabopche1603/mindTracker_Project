@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('onbpoarding_ques', function (Blueprint $table) {
+        Schema::create('onboarding_ques', function (Blueprint $table) {
             $table->id();
             $table->longtext('questions');
             $table->string('options');
+            $table->tinyInteger('status')->comment("1=Unblock,0=Block")->default(1);
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('onbpoarding_ques');
+        Schema::dropIfExists('onboarding_ques');
     }
 };

@@ -87,18 +87,24 @@
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
 					<li>
-						<a href="#" class="dropdown-toggle no-arrow">
+						<a href="{{route('admin.dashboard')}}" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-diagram"></span><span class="mtext">Dashboard</span>
+						</a>
+					</li>
+
+					<li>
+						<a href="{{route('admin.onboardingQueIndex')}}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-diagram"></span><span class="mtext">Onboarding</span>
 						</a>
 					</li>
 					
 					<li class="dropdown">
 						<a href="javascript:;" class="dropdown-toggle">
-							<span class="micon dw dw-library"></span><span class="mtext">Tables</span>
+							<span class="micon dw dw-library"></span><span class="mtext">Brain Balance</span>
 						</a>
 						<ul class="submenu">
-							<li><a href="#">Basic Tables</a></li>
-							<li><a href="#">DataTables</a></li>
+							<li><a href="{{route('admin.brainCategory')}}">Category</a></li>
+							<li><a href="{{route('admin.brainSubCategory')}}">Sub Category</a></li>
 						</ul>
 					</li>
 					<li>

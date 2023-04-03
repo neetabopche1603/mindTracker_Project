@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\OnbpoardingQues;
+use App\Models\OnboardingQues;
 use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
@@ -103,7 +103,7 @@ class HomeController extends Controller
 
           public function onboardingQuesOption(){
             try{
-                $onboardingQuesOption = OnbpoardingQues::get();
+                $onboardingQuesOption = OnboardingQues::get();
                 return $this->getResponseCode(201,'',$onboardingQuesOption,'Show all Onboarding Question and Option');
 
             }catch(Exception $e){
