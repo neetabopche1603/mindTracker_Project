@@ -86,10 +86,15 @@ Route::prefix('admin')->group(function () {
     //==============Onboarding Questions Route Start==============
     Route::controller(OnboardingController::class)->group(function () {
         Route::get('onboarding', 'onboardingQueIndex')->name('admin.onboardingQueIndex');
+        Route::get('view-onboarding/{id}', 'onboardingQuesViewFrom')->name('admin.onboardingQuesViewFrom');
+
         Route::get('add-onboarding', 'onboardingQuesAddFrom')->name('admin.onboardingQuesAddFrom');
         Route::post('add-onboarding', 'onboardingQuesStore')->name('admin.onboardingQuesStore');
+
         Route::get('edit-onboarding/{id}', 'onboardingQuesEditFrom')->name('admin.onboardingQuesEditFrom');
         Route::post('edit-onboarding', 'onboardingQuesUpdate')->name('admin.onboardingQuesUpdate');
+
+        Route::get('delete-onboarding/{id}','onboardingQuesDelete')->name('admin.onboardingQuesDelete');
     });   //ADMIN ONBOARDING CONTROLLER CLOSEUP
 
          /*
@@ -101,6 +106,7 @@ Route::prefix('admin')->group(function () {
         Route::controller(BrainBalanceController::class)->group(function(){
             // -----------------CATEGORY ROUTES-------------------
             Route::get('brainBalance-category','category')->name('admin.brainCategory');
+            Route::get('brainBalance-view-category/{id}','categoryViewForm')->name('admin.brainCateViewForm');
 
             Route::get('brainBalance-add-category','categoryAddForm')->name('admin.brainCateAddForm');
             Route::post('brainBalance-add-category','categoryStore')->name('admin.brainCateStore');
@@ -115,16 +121,31 @@ Route::prefix('admin')->group(function () {
              // -----------------SUB-CATEGORY ROUTES START-------------------
 
              Route::get('brainBalance-SubCategory','subCategory')->name('admin.brainSubCategory');
+             Route::get('brainBalance-view-SubCategory/{id}','subCategoryViewForm')->name('admin.brainSubCateViewForm');
 
              Route::get('brainBalance-add-SubCategory','subCategoryAddForm')->name('admin.brainSubCateAddForm');
              Route::post('brainBalance-add-SubCategory','subCategoryStore')->name('admin.BrainSubCateStore');
  
              Route::get('brainBalance-edit-SubCategory/{id}','subCategoryEditForm')->name('admin.brainSubCateEditForm');
-             Route::get('brainBalance-edit-SubCategory','subCategoryUpdate')->name('admin.brainSubCateUpdate');
+             Route::post('brainBalance-edit-SubCategory','subCategoryUpdate')->name('admin.brainSubCateUpdate');
  
              Route::get('brainBalance-delete-SubCategory/{id}','subCategoryDelete')->name('admin.brainSubCategoryDelete');
              Route::get('brainBalance-detetes-SubCategory/{ids}','subCategoryDelete')->name('admin.brainSubCategoryDeletes');
 
+
+              // ------------------------CONTENT ROUTES START-------------------------
+
+              Route::get('brainBalance-contents','content')->name('admin.brainBalContent');
+              Route::get('brainBalance-view-contents/{id}','contentViewFrom')->name('admin.contentViewFrom');
+
+              Route::get('brainBalance-add-contents','contentAddFrom')->name('admin.brainBalContentAddFrom');
+              Route::post('brainBalance-add-contents','contentStore')->name('admin.brainBalContentStore');
+
+              Route::get('brainBalance-edit-contents/{id}','contentEditFrom')->name('admin.brainBalContentEditFrom');
+              Route::post('brainBalance-edit-contents','contentUpdate')->name('admin.brainBalContentUpdate');
+
+              Route::get('brainBalance-delete-contents/{id}','contentDelete')->name('admin.brainBalContentDelete');
+    
 
         });       //ADMIN BRAIN BALANCE CONTROLLER CLOSEUP
 

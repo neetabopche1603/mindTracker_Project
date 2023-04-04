@@ -19,6 +19,8 @@ return new class extends Migration
             $table->string('sub_category_name');
             $table->tinyInteger('status')->comment("1=Unblock,0=Block")->default(1);
             $table->timestamps();
+
+            $table->foreign('category_id')->references('id')->on('brain_balance_categories')->onDelete('cascade');
         });
     }
 

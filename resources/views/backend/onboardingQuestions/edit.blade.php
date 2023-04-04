@@ -18,7 +18,7 @@
             </div>
         </div>
         <!-- Default Basic Forms Start -->
-        <div class="pd-20 card-box mb-30">
+        <div class="pd-20 card-box mb-30" style="padding-bottom: 50px">
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
@@ -61,7 +61,7 @@
                             </div>
                         </div>
                         <div class="col-2">
-                            <button type="button" id="add-option" class="btn btn-success">Add more</button>
+                            <button type="button" id="add-option" class="btn btn-success btn-sm">Add more</button>
                         </div>
                     </div>
                     @else
@@ -74,24 +74,42 @@
                             </div>
                         </div>
                         <div class="col-2">
-                            <button type="button" class="remove-option btn btn-danger">Remove</button>
+                            <button type="button" class="remove-option btn btn-danger btn-sm">Remove</button>
                         </div>
                     </div>
                     @endif
                      @endforeach
-                        
+                     <span class="text-danger">
+                         @error('options')
+                             {{ $message }}
+                         @enderror
+                     </span>
                     </div>
-                    <span class="text-danger">
-                        @error('options')
-                            {{ $message }}
-                        @enderror
-                    </span>
                 </div>
 
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
+                    <div class="col-sm-12 col-md-10">
+                        <div class="custom-control custom-radio mb-5">
+                            <input type="radio" id="customRadio1" name="status" value="0" class="custom-control-input">
+                            <label class="custom-control-label" for="customRadio1">BLOCK</label>
+                        </div>
+                        <div class="custom-control custom-radio mb-5">
+                            <input type="radio" id="customRadio2" name="status" value="1"  class="custom-control-input" checked>
+                            <label class="custom-control-label" for="customRadio2">UNBLOCK</label>
+                        </div>
+                        <span class="text-danger">
+                            @error('status')
+                            {{$message}}
+                            @enderror
+                        </span>
+                    </div>
+                </div>
+                <div class="float-right">
+                    <input type="submit" class="btn btn-warning" value="Update">
+                </div>
+                </form>
         </div>
-        <input type="submit" class="btn btn-primary" value="Save">
-
-        </form>
         </code></pre>
     </div>
     </div>
@@ -130,13 +148,11 @@
                                 </div>
                             </div>
                             <div class="col-2">
-                                <button type="button" class="remove-option btn btn-danger">Remove</button>
+                                <button type="button" class="remove-option btn btn-danger btn-sm">Remove</button>
                             </div>
                         </div>
           `);
             });
-
-
 
             $(document).on('click', '.remove-option', function() {
                 $(this).closest('.option').remove();

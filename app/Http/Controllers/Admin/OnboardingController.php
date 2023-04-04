@@ -32,11 +32,11 @@ class OnboardingController extends Controller
                                    <i class="dw dw-more"></i>
                                </a>
                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                   <a class="dropdown-item" href="#" class="text-warning"><i class="dw dw-eye text-warning"></i> View</a>
+                                   <a class="dropdown-item" href="'.route('admin.onboardingQuesViewFrom', $row->id).'" class="text-warning"><i class="dw dw-eye text-warning"></i> View</a>
 
-                                   <a class="dropdown-item" href="#"><i class="dw dw-edit2 text-success"></i> Edit</a>
+                                   <a class="dropdown-item" href="'.route('admin.onboardingQuesEditFrom', $row->id).'"><i class="dw dw-edit2 text-success"></i> Edit</a>
 
-                                   <a class="dropdown-item" href="#"><i class="dw dw-delete-3 text-danger"></i> Delete</a>
+                                   <a class="dropdown-item" href="'.route('admin.onboardingQuesDelete',$row->id) .'" onclick="return confirm(`Are you sure delete this data`)"><i class="dw dw-delete-3 text-danger"></i> Delete</a>
                                </div>
                            </div>';
         
@@ -52,6 +52,17 @@ class OnboardingController extends Controller
         }
     }
 
+
+// View Onbording Question function
+public function onboardingQuesViewFrom($id)
+{
+    try {
+        $onboardingViewData = OnboardingQue::find($id);
+        return view('backend.onboardingQuestions.view',compact('onboardingViewData'));
+    } catch (Exception $e) {
+        dd($e->getMessage());
+    }
+}
     // Add Onbording Question Options function
     public function onboardingQuesAddFrom()
     {
@@ -65,12 +76,12 @@ class OnboardingController extends Controller
     //  Onboarding Question Options Store Function
     public function onboardingQuesStore(Request $request)
     {
+        $validated = $request->validate([
+            'questions' => 'required|unique:onboarding_ques,questions',
+            'options' => 'required',
+            'status' => 'required',
+        ]);
         try {
-            $validated = $request->validate([
-                'questions' => 'required|unique:onboarding_ques,questions',
-                'options' => 'required',
-            ]);
-
             $onboardingStore = new OnboardingQue();
             $onboardingStore->questions = $request->questions;
             $optsarr = [];
@@ -78,8 +89,10 @@ class OnboardingController extends Controller
                 array_push($optsarr,$optionText);
             }
             $onboardingStore->options = json_encode($optsarr,JSON_FORCE_OBJECT);
+
+            $onboardingStore->status = $request->status;
             $onboardingStore->save();
-            return redirect()->route('admin.onboardingQueIndex')->with('success', "Question and option successfully add");
+            return redirect()->route('admin.onboardingQueIndex')->with('success', "Onboarding Question and option successfully add");
         } catch (Exception $e) {
             dd($e->getMessage());
         }
@@ -96,25 +109,50 @@ class OnboardingController extends Controller
         }
     }
 
+       // Update Onbording Question function
     public function onboardingQuesUpdate(Request $request)
     {
         $validated = $request->validate([
             'questions' => 'required|unique:onboarding_ques,questions,'.$request->id,
             'options' => 'required',
+            'status' => 'required',
         ]);
         try {
-            $onboardingStore = OnboardingQue::find($request->id);
-            $onboardingStore->questions = $request->questions;
+            $onboardingUpdate = OnboardingQue::find($request->id);
+            $onboardingUpdate->questions = $request->questions;
             $optsarr = [];
             foreach ($request['options'] as $optionText) {
                 array_push($optsarr,$optionText);
             }
-            $onboardingStore->options = json_encode($optsarr,JSON_FORCE_OBJECT);
-            $onboardingStore->update();
-            return redirect()->route('admin.onboardingQueIndex')->with('success', "Question and option successfully add");
+            $onboardingUpdate->options = json_encode($optsarr,JSON_FORCE_OBJECT);
+            $onboardingUpdate->status = $request->status;
+            $onboardingUpdate->update();
+            return redirect()->route('admin.onboardingQueIndex')->with('success', "Onboarding Question and option successfully add");
        
           
         } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    // Delete Onboarding Question Function
+
+    public function onboardingQuesDelete($id){
+        try{
+            OnboardingQue::find($id)->delete();
+            return redirect()->route('admin.onboardingQueIndex')->with('delete', "Onboarding Question and option successfully Deleted");
+        }catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+     //Multiple Selection Delete Onboarding Question Function
+
+     public function onboardingQuesDeletesData($id){
+        try{
+            OnboardingQue::find($id)->delete();
+            return redirect()->route('admin.onboardingQueIndex')->with('delete', "Onboarding Question and option successfully Deleted");
+        }catch (Exception $e) {
             dd($e->getMessage());
         }
     }

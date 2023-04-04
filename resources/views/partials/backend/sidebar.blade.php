@@ -87,13 +87,13 @@
 			<div class="sidebar-menu">
 				<ul id="accordion-menu">
 					<li>
-						<a href="{{route('admin.dashboard')}}" class="dropdown-toggle no-arrow">
+						<a href="{{route('admin.dashboard')}}" class="dropdown-toggle no-arrow {{ request()->is('admin/dashboard') ? 'active' : '' }}" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-diagram"></span><span class="mtext">Dashboard</span>
 						</a>
 					</li>
 
 					<li>
-						<a href="{{route('admin.onboardingQueIndex')}}" class="dropdown-toggle no-arrow">
+						<a href="{{route('admin.onboardingQueIndex')}}" class="dropdown-toggle no-arrow {{ request()->is('admin/onboarding') ? 'active' : '' }}" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-diagram"></span><span class="mtext">Onboarding</span>
 						</a>
 					</li>
@@ -105,12 +105,32 @@
 						<ul class="submenu">
 							<li><a href="{{route('admin.brainCategory')}}">Category</a></li>
 							<li><a href="{{route('admin.brainSubCategory')}}">Sub Category</a></li>
+							<li><a href="{{route('admin.brainBalContent')}}">Content</a></li>
 						</ul>
 					</li>
+
 					<li>
-						<a href="#" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-calendar1"></span><span class="mtext">Calendar</span>
+						<a href="{{route('admin.brainBalContent')}}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-calendar1"></span><span class="mtext">Content</span>
 						</a>
+					</li>
+
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-library"></span><span class="mtext">Tharapist</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="#">Tharapist</a></li>
+						</ul>
+					</li>
+
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-library"></span><span class="mtext">Users</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="#">Users List</a></li>
+						</ul>
 					</li>
 					
 					<li>
