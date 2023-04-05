@@ -1,17 +1,17 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'View Category (BrainBalance)')
+@section('adminTitle', 'View Content (BrainBalance)')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Details Form</h4>
+                        <h4>View Form</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Brain Balance > Category</li>
+                            <li class="breadcrumb-item active" aria-current="page">Brain Balance > Content</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,8 +22,8 @@
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">View Category</h4>
-                    <p class="mb-30">Details Form</p>
+                    <h4 class="text-blue h4">View Content</h4>
+                    <p class="mb-30">Details Form </p>
                 </div>
                 <div class="pull-right">
                     <a href="javascript:void(0);" onclick="window.history.back()"
@@ -31,42 +31,70 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-            <form method="post" action="#" type="multfor">
+            <form method="post" action="{{ route('admin.brainBalContentUpdate') }}" type="multfor">
                 @csrf
-                <input type="hidden" name="id" value="{{ $categoryViewData->id }}">
+                <input type="hidden" name="id" value="{{ $contents->id }}">
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Category Name : <span
+                    <label class="col-sm-12 col-md-2 col-form-label">Sub Categories : <span
                             class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control" name="category_name"
-                            value="{{ $categoryViewData->category_name }}" readonly>
+                        <select class="form-control" name="subCategory_id" id="">
+                            <option value="" selected disabled>Select SubCategory</option>
+                            @foreach ($subCategory as $subCate)
+                                <option value="{{ $subCate->id }}" {{ $subCate->id == $contents->subCategory_id ? 'selected' : '' }}>
+                                    {{ $subCate->sub_category_name }}</b></option>
+                            @endforeach
+                        </select>
+                        <span class="text-danger">
+                            @error('subCategory_id')
+                                {{ $message }}
+                            @enderror
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Title :</label>
+                    <div class="col-sm-12 col-md-10">
+                        <input type="text" class="form-control" name="sub_cate_title"
+                            value="{{ $contents->sub_cate_title }}">
+                        <span class="text-danger">
+                            @error('sub_cate_title')
+                                {{ $message }}
+                            @enderror
+                        </span>
                     </div>
                 </div>
 
-                @if ($categoryViewData->status==1)
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Description : <span
+                            class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <div class="custom-control custom-radio mb-5">
-                           <span class="badge badge-success">Active</span>
-                        </div>
+                        <textarea cols="80" id="editor1" name="description" value="" rows="10">{{ $contents->description }}</textarea>
+                        <span class="text-danger">
+                            @error('description')
+                                {{ $message }}
+                            @enderror
+                        </span>
                     </div>
                 </div>
-                @else
+
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
-                    <div class="col-sm-12 col-md-10">
-                        <div class="custom-control custom-radio mb-5">
-                            <span class="badge badge-danger">Block</span>
-                        </div>
+                    <label class="col-sm-12 col-md-2 col-form-label">Image :</label>
+                    <div class="col-sm-12 col-md-10 fallback">
+                        <img src="" alt="Images" srcset="" class="img-thumbnail">
                     </div>
                 </div>
-                @endif
+
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label"> Files :</label>
+                    <div class="col-sm-12 col-md-10 fallback">
+                        <img src="" alt="file" srcset="" class="img-thumbnail">
+                    </div>
+                </div>
 
                 <div class="float-right">
                     <input type="submit" class="btn btn-warning" value="Update">
                 </div>
-
             </form>
         </div>
 
@@ -79,3 +107,14 @@
     </div>
 
 @endsection
+
+@push('script')
+    <!-- CK EDITOR SCRIPT START -->
+    <script>
+        // We need to turn off the automatic editor creation first.
+        CKEDITOR.disableAutoInline = true;
+
+        CKEDITOR.replace('description');
+    </script>
+    <!-- CK EDITOR SCRIPT  -->
+@endpush

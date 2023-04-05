@@ -33,7 +33,6 @@
             </div>
            <form method="post" action="{{route('admin.brainBalContentStore')}}" type="multfor"> 
                 @csrf
-
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Sub Categories : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
@@ -75,11 +74,11 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Image :</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Upload Image :</label>
                     <div class="col-sm-12 col-md-10 fallback">
-                        <input type="file" class="form-control" name="images">
+                        <input type="file" name="uploadImages" class="form-control">
                         <span class="text-danger">
-                            @error('images')
+                            @error('uploadImages')
                             {{$message}}
                             @enderror
                         </span>
@@ -87,11 +86,11 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Files :</label>
-                    <div class="col-sm-12 col-md-10">
-                        <input type="file" class="form-control" name="files">
+                    <label class="col-sm-12 col-md-2 col-form-label">Upload Files :</label>
+                    <div class="col-sm-12 col-md-10 fallback">
+                        <input type="file" name="uploadfiles" class="form-control">
                         <span class="text-danger">
-                            @error('files')
+                            @error('uploadfiles')
                             {{$message}}
                             @enderror
                         </span>

@@ -33,17 +33,18 @@
             </div>
             <form method="post" action="#" type="multfor">
                 @csrf
-                <input type="hidden" name="id" value="{{ $categoryViewData->id }}">
+                <input type="hidden" name="id" value="{{ $selfCareCateView->id }}">
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Category Name : <span
                             class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control" name="category_name"
-                            value="{{ $categoryViewData->category_name }}" readonly>
+                        {{-- <input type="text" class="form-control" name="self_cate_name"
+                            value="{{ $selfCareCateView->self_cate_name }}" readonly> --}}
+                            <strong class="text-dark">{{ $selfCareCateView->self_cate_name }}</strong>
                     </div>
                 </div>
 
-                @if ($categoryViewData->status==1)
+                @if ($selfCareCateView->status==1)
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
@@ -62,11 +63,6 @@
                     </div>
                 </div>
                 @endif
-
-                <div class="float-right">
-                    <input type="submit" class="btn btn-warning" value="Update">
-                </div>
-
             </form>
         </div>
 

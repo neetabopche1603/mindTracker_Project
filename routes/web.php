@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\BrainBalanceController;
 use App\Http\Controllers\Admin\OnboardingController;
+use App\Http\Controllers\Admin\SelfCareController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Therapist\TherapistAuthController;
 use App\Http\Controllers\Therapist\TherapistHomeController;
@@ -148,6 +149,31 @@ Route::prefix('admin')->group(function () {
     
 
         });       //ADMIN BRAIN BALANCE CONTROLLER CLOSEUP
+
+         /*
+        |---------------------------------------------------------------------
+        |  SELF CARE CATEGORY AND SUBCATEGORY CONTROLLER ROUTE
+        |---------------------------------------------------------------------
+        */
+
+        Route::controller(SelfCareController::class)->group(function(){
+                // -----------------SELF CARE CATEGORY ROUTES-------------------
+                Route::get('selfCare-category','selfCategory')->name('admin.selfCategory');
+                Route::get('selfCare-view-category/{id}','selfCategoryView')->name('admin.selfCategoryView');
+
+                Route::get('selfCare-add-category','selfCategoryAddForm')->name('admin.selfCategoryAddForm');
+                Route::post('selfCare-add-category','selfCategoryStore')->name('admin.selfCategoryStore');
+
+                Route::get('selfCare-edit-category/{id}','selfCategoryEditForm')->name('admin.selfCategoryEditForm');
+                Route::post('selfCare-edit-category','selfCategoryUpdate')->name('admin.selfCategoryUpdate');
+
+                Route::get('selfCare-delete-category/{id}','selfCategoryDelete')->name('admin.selfCategoryDelete');
+
+                 // -----------------SELF CARE CONTENTS ROUTES-------------------
+
+
+        });  //ADMIN SELF CARE CONTROLLER CLOSEUP
+
 
 
 });   //ADMIN PREFIX CLOSEUP

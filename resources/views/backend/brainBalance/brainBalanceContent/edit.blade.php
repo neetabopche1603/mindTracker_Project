@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Brain Balance >Content</li>
+                            <li class="breadcrumb-item active" aria-current="page">Brain Balance > Content</li>
                         </ol>
                     </nav>
                 </div>
@@ -31,42 +31,45 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-            {{-- <form method="post" action="{{route('admin.brainBalContentStore')}}" type="multfor"> --}}
-                <form class="dropzone" action="#" id="my-awesome-dropzone">
+            <form method="post" action="{{ route('admin.brainBalContentUpdate') }}" type="multfor">
                 @csrf
-
+                <input type="hidden" name="id" value="{{ $contents->id }}">
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Categories : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Sub Categories : <span
+                            class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <select class="form-control" name="subCategory_id" id="">
                             <option value="" selected disabled>Select SubCategory</option>
                             @foreach ($subCategory as $subCate)
-                            <option value="{{$subCate->id}}">{{$subCate->sub_category_name}}</b></option>
+                                <option value="{{ $subCate->id }}" {{ $subCate->id == $contents->subCategory_id ? 'selected' : '' }}>
+                                    {{ $subCate->sub_category_name }}</b></option>
                             @endforeach
                         </select>
                         <span class="text-danger">
                             @error('subCategory_id')
-                            {{$message}}
+                                {{ $message }}
                             @enderror
                         </span>
                     </div>
                 </div>
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Title : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Title :</label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control" name="category_name" value="{{old('category_name')}}">
+                        <input type="text" class="form-control" name="sub_cate_title"
+                            value="{{ $contents->sub_cate_title }}">
                         <span class="text-danger">
-                            @error('category_name')
-                            {{$message}}
+                            @error('sub_cate_title')
+                                {{ $message }}
                             @enderror
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Description : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Description : <span
+                            class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <textarea cols="80" id="editor1" value="{{ old('description') }}" name="description" value="" rows="10"></textarea>
+                        <textarea cols="80" id="editor1" name="description" value="" rows="10">{{ $contents->description }}</textarea>
                         <span class="text-danger">
                             @error('description')
                                 {{ $message }}
@@ -76,31 +79,45 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Image : <span class="text-danger">*</span></label>
-                    <div class="col-sm-12 col-md-10 fallback">
-                        <input type="file" class="form-control" name="category_name" value="{{old('category_name')}}">
+                    <label class="col-sm-12 col-md-2 col-form-label">Upload Image :</label>
+                    <div class="col-sm-8 col-md-8 fallback">
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="file" name="uploadImages" class="form-control">
+                            </div>
+                            <div class="col-4"> 
+                                <img src="" alt="Images" srcset="" class="img-thumbnail">
+                            </div>
+                        </div>
                         <span class="text-danger">
-                            @error('category_name')
-                            {{$message}}
+                            @error('uploadImages')
+                                {{ $message }}
                             @enderror
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Files : <span class="text-danger">*</span></label>
-                    <div class="col-sm-12 col-md-10">
-                        <input type="file" class="form-control" name="category_name" value="{{old('category_name')}}">
+                    <label class="col-sm-12 col-md-2 col-form-label">Upload Files :</label>
+                    <div class="col-sm-8 col-md-8 fallback">
+                        <div class="row">
+                            <div class="col-8">
+                                <input type="file" name="uploadfiles" class="form-control">
+                            </div>
+                            <div class="col-4"> 
+                                <img src="" alt="Files" srcset="" class="img-thumbnail">
+                            </div>
+                        </div>
                         <span class="text-danger">
-                            @error('category_name')
-                            {{$message}}
+                            @error('uploadfiles')
+                                {{ $message }}
                             @enderror
                         </span>
                     </div>
                 </div>
-               
+
                 <div class="float-right">
-                    <input type="submit" class="btn btn-warning" value="Save">
+                    <input type="submit" class="btn btn-warning" value="Update">
                 </div>
             </form>
         </div>
@@ -124,4 +141,4 @@
         CKEDITOR.replace('description');
     </script>
     <!-- CK EDITOR SCRIPT  -->
-    @endpush
+@endpush

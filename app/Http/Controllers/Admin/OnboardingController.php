@@ -21,10 +21,9 @@ class OnboardingController extends Controller
                         ->addColumn('questions', function ($row) {
                             return strip_tags($row->questions);
                         })
-                        ->addColumn('status', function ($row) {
-                           return $row->status==1?'<span class="badge badge-success">Active</span>':'<span class="badge badge-danger">Block</span>';
-                            
-                        })
+                        // ->addColumn('status', function ($row) {
+                        //    return $row->status==1?'<span class="badge badge-success">Active</span>':'<span class="badge badge-danger">Block</span>';
+                        // })
                         ->addColumn('action', function($row){
          
                                $btn = '<div class="dropdown">
@@ -42,7 +41,7 @@ class OnboardingController extends Controller
         
                                 return $btn;
                         })
-                        ->rawColumns(['action','questions','status'])
+                        ->rawColumns(['action','questions'])
                         ->make(true);
             }
 

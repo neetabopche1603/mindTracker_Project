@@ -65,8 +65,8 @@
           columns: [
               {data: 'id', name: 'id'},
               {data: 'images', name: 'images'},
-              {data: 'files', name: 'files'},
-              {data: 'subCategory_id', name: 'subCategory_id'},
+              {data: 'filesData', name: 'filesData'},
+              {data: 'sub_category_name', name: 'sub_category_name'},
               {data: 'sub_cate_title', name: 'sub_cate_title'},
               {data: 'description', name: 'description'},
               {data: 'action', name: 'action', orderable: false, searchable: false},

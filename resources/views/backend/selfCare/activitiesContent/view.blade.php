@@ -1,17 +1,17 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'Add Category (BrainBalance)')
+@section('adminTitle', 'View Category (BrainBalance)')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Add Form</h4>
+                        <h4>Details Form</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Brain Balance >Category</li>
+                            <li class="breadcrumb-item active" aria-current="page">Brain Balance > Category</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,8 +22,8 @@
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Add Category</h4>
-                    <p class="mb-30">Add To Form Details</p>
+                    <h4 class="text-blue h4">View Category</h4>
+                    <p class="mb-30">Details Form</p>
                 </div>
                 <div class="pull-right">
                     <a href="javascript:void(0);" onclick="window.history.back()"
@@ -31,41 +31,38 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-            <form method="post" action="{{route('admin.brainCateStore')}}" type="multfor">
+            <form method="post" action="#" type="multfor">
                 @csrf
+                <input type="hidden" name="id" value="{{ $selfCareCateView->id }}">
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Category Name : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Category Name : <span
+                            class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control" name="category_name" value="{{old('category_name')}}">
-                        <span class="text-danger">
-                            @error('category_name')
-                            {{$message}}
-                            @enderror
-                        </span>
+                        {{-- <input type="text" class="form-control" name="self_cate_name"
+                            value="{{ $selfCareCateView->self_cate_name }}" readonly> --}}
+                            <strong class="text-dark">{{ $selfCareCateView->self_cate_name }}</strong>
                     </div>
                 </div>
 
+                @if ($selfCareCateView->status==1)
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio1" name="status" value="0" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio1">BLOCK</label>
+                           <span class="badge badge-success">Active</span>
                         </div>
-                        <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio2" name="status" value="1"  class="custom-control-input" checked>
-                            <label class="custom-control-label" for="customRadio2">UNBLOCK</label>
-                        </div>
-                        <span class="text-danger">
-                            @error('status')
-                            {{$message}}
-                            @enderror
-                        </span>
                     </div>
                 </div>
-                <div class="float-right">
-                    <input type="submit" class="btn btn-warning" value="Save">
+                @else
+                <div class="form-group row">
+                    <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
+                    <div class="col-sm-12 col-md-10">
+                        <div class="custom-control custom-radio mb-5">
+                            <span class="badge badge-danger">Block</span>
+                        </div>
+                    </div>
                 </div>
+                @endif
             </form>
         </div>
 

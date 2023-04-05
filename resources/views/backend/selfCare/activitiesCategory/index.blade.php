@@ -1,5 +1,5 @@
 @extends('partials.backend.app')
-@section('adminTitle','Brain Blances Categories')
+@section('adminTitle','Activities Categories')
 @section('container')
 
 <div class="min-height-200px">
@@ -12,12 +12,12 @@
                 <nav aria-label="breadcrumb" role="navigation">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active" aria-current="page">Brain Balance > Category</li>
+                        <li class="breadcrumb-item active" aria-current="page">Activities > Category</li>
                     </ol>
                 </nav>
             </div>
             <div class="col-md-6 col-sm-12 text-right">
-                <a href="{{route('admin.brainCateAddForm')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add Category</a>
+                <a href="{{route('admin.selfCategoryAddForm')}}" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> Add Category</a>
 
             </div>
         </div>
@@ -32,7 +32,7 @@
         {{-- <a href="javascript:void(0)" class="btn btn-danger m-3" id="deleteAll">Delete All</a> --}}
         <div class="pb-20 table-responsive">
         
-            <table id="category" class="table table-bordered yajra-datatable">
+            <table id="selfcareCategory" class="table table-bordered yajra-datatable">
                 <thead>
                     <tr>
                         <th>No</th>
@@ -55,13 +55,13 @@
 <script type="text/javascript">
     $(function () {
       
-      var table = $('#category').DataTable({
+      var table = $('#selfcareCategory').DataTable({
           processing: true,
           serverSide: true,
-          ajax: "{{ route('admin.brainCategory') }}",
+          ajax: "{{ route('admin.selfCategory') }}",
           columns: [
               {data: 'id', name: 'id'},
-              {data: 'category_name', name: 'category_name'},
+              {data: 'self_cate_name', name: 'self_cate_name'},
               {data: 'status', name: 'status'},
               {data: 'action', name: 'action', orderable: false, searchable: false},
           ]

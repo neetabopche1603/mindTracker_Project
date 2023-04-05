@@ -87,7 +87,7 @@
                     </div>
                 </div>
 
-                <div class="form-group row">
+                {{-- <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <div class="custom-control custom-radio mb-5">
@@ -104,7 +104,7 @@
                             @enderror
                         </span>
                     </div>
-                </div>
+                </div> --}}
                 <div class="float-right">
                     <input type="submit" class="btn btn-warning" value="Update">
                 </div>

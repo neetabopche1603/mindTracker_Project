@@ -158,7 +158,7 @@ class BrainBalanceController extends Controller
         try {
             if ($request->ajax()) {
                 // $data = BrainBalanceSubCategory::all();
-                $data = DB::table('brain_balance_sub_categories')->join('brain_balance_categories', 'brain_balance_categories.id', '=', 'brain_balance_sub_categories.category_id')->where('brain_balance_categories.status',1)->select('brain_balance_sub_categories.*', 'brain_balance_categories.category_name')->get();
+                $data = DB::table('brain_balance_sub_categories')->join('brain_balance_categories', 'brain_balance_categories.id', '=', 'brain_balance_sub_categories.category_id')->where('brain_balance_categories.status', 1)->select('brain_balance_sub_categories.*', 'brain_balance_categories.category_name')->get();
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('status', function ($row) {
@@ -167,7 +167,7 @@ class BrainBalanceController extends Controller
                     ->addColumn('action', function ($row) {
 
                         $btn = '<div class="dropdown">
-                               <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="'.route('admin.brainSubCateViewForm',$row->id).'" role="button" data-toggle="dropdown">
+                               <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="' . route('admin.brainSubCateViewForm', $row->id) . '" role="button" data-toggle="dropdown">
                                    <i class="dw dw-more"></i>
                                </a>
                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
@@ -195,7 +195,7 @@ class BrainBalanceController extends Controller
     {
         try {
             $subCategoryEdit = BrainBalanceSubCategory::find($id);
-            $categories = BrainBalanceCategory::where('status',1)->get();
+            $categories = BrainBalanceCategory::where('status', 1)->get();
             return view('backend.brainBalance.brainBalanceSubCategory.view', compact('subCategoryEdit', 'categories'));
         } catch (Exception $e) {
             dd($e->getMessage());
@@ -206,7 +206,7 @@ class BrainBalanceController extends Controller
     public function subCategoryAddForm()
     {
         try {
-            $categories = BrainBalanceCategory::where('status',1)->get();
+            $categories = BrainBalanceCategory::where('status', 1)->get();
             return view('backend.brainBalance.brainBalanceSubCategory.add', compact('categories'));
         } catch (Exception $e) {
             dd($e->getMessage());
@@ -237,7 +237,7 @@ class BrainBalanceController extends Controller
         try {
 
             $subCategoryEdit = BrainBalanceSubCategory::find($id);
-            $categories = BrainBalanceCategory::where('status',1)->get();
+            $categories = BrainBalanceCategory::where('status', 1)->get();
             return view('backend.brainBalance.brainBalanceSubCategory.edit', compact('subCategoryEdit', 'categories'));
         } catch (Exception $e) {
             dd($e->getMessage());
@@ -283,7 +283,7 @@ class BrainBalanceController extends Controller
     }
     // ============BRAIN BALANCE SUB CATEGORY FUNCTION END=============
 
-     /*
+    /*
         |---------------------------------------------------------------------
         |---------------------------------------------------------------------
         
@@ -294,16 +294,25 @@ class BrainBalanceController extends Controller
 
         */
 
-        // Content Show Function
-        public function content(Request $request){
-            try{
-                if ($request->ajax()) {
-                    $data = BrainBalanceContents::all();
-                    return Datatables::of($data)
-                        ->addIndexColumn()
-                        ->addColumn('action', function ($row) {
-    
-                            $btn = '<div class="dropdown">
+    // Content Show Function
+    public function content(Request $request)
+    {
+        try {
+            if ($request->ajax()) {
+                // $data = BrainBalanceContents::all();
+
+                $data = DB::table('brain_balance_contents')->join('brain_balance_sub_categories', 'brain_balance_sub_categories.id', '=', 'brain_balance_contents.subCategory_id')->where('brain_balance_sub_categories.status', 1)->select('brain_balance_contents.*', 'brain_balance_sub_categories.sub_category_name')->get();
+
+               
+
+                return Datatables::of($data)
+                    ->addIndexColumn()
+                    ->addColumn('description', function ($row) {
+                        return $row->description;
+                    })
+                    ->addColumn('action', function ($row) {
+
+                        $btn = '<div class="dropdown">
                                    <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                                        <i class="dw dw-more"></i>
                                    </a>
@@ -315,117 +324,112 @@ class BrainBalanceController extends Controller
                                        <a class="dropdown-item" href="' . route('admin.brainBalContentDelete', $row->id) . '" onclick="return confirm(`Are you sure delete this data`)"><i class="dw dw-delete-3 text-danger"></i> Delete</a>
                                    </div>
                                </div>';
-    
-                            return $btn;
-                        })
-                        ->rawColumns(['action'])
-                        ->make(true);
-                }
 
-                return view('backend.brainBalance.brainBalanceContent.index');
-            }catch (Exception $e) {
-                dd($e->getMessage());
+                        return $btn;
+                    })
+                    ->rawColumns(['action','description'])
+                    ->make(true);
             }
-        } 
 
-          // Content View Function
-          public function contentViewFrom($id){
-            try{
-                $subCategory = BrainBalanceSubCategory::where('status',1)->get();
-                return view('backend.brainBalance.brainBalanceContent.view',compact('subCategory'));
-            }catch (Exception $e) {
-                dd($e->getMessage());
-            }
-        } 
-
-
-           // Content Add From Function
-           public function contentAddFrom(){
-            try{
-                $contents = BrainBalanceContents::get();
-                $subCategory = BrainBalanceSubCategory::where('status',1)->get();
-                return view('backend.brainBalance.brainBalanceContent.add',compact('subCategory','contents'));
-            }catch (Exception $e) {
-                dd($e->getMessage());
-            }
-        } 
-
-         // Content Store Function
-         public function contentStore(Request $request){
-            $validated = $request->validate([
-                'subCategory_id' => 'required',
-                'description' => 'required',
-                'images' => 'image|mimes:jpg,png,jpeg,gif|max:2048',
-                'files' => 'image|mimes:jpg,png,jpeg,gif|max:2048'
-            ]);
-            // dd($request->all());
-            try{
-               $contentStore = new BrainBalanceContents();
-                $contentStore->subCategory_id = $request->subCategory_id;
-                $contentStore->sub_cate_title = $request->sub_cate_title;
-                $contentStore->description = $request->description;
-
-                if ($reqIMG = $request->file('images')) {
-                    $destinationPath = '/brainBalance/images/';
-                    $imgs = date('YmdHis') . "." . $reqIMG->getClientOriginalExtension();
-                    $reqIMG->move(public_path() . $destinationPath, $imgs);
-                    $contentStore->images = $imgs;
-                }
-
-                if ($reqFile = $request->file('files')) {
-                    $destinationPath = '/brainBalance/files/';
-                    $file = date('YmdHis') . "." . $reqIMG->getClientOriginalExtension();
-                    $reqIMG->move(public_path() . $destinationPath, $file);
-                    $contentStore->files = $file;
-                }
-
-                $contentStore->save();
-                return redirect()->route('admin.brainBalContent')->with('success', "Content Add Successfully Done.!");
-                
-            }catch (Exception $e) {
-                dd($e->getMessage());
-            }
+            return view('backend.brainBalance.brainBalanceContent.index');
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
+    }
 
-         // Content Edit Function
-         public function contentEditFrom($id){
-            try{
-                $contents = BrainBalanceContents::get();
-                $subCategory = BrainBalanceSubCategory::where('status',1)->get();
-                return view('backend.brainBalance.brainBalanceContent.index',compact('subCategory','contents'));
-            }catch (Exception $e) {
-                dd($e->getMessage());
-            }
-        } 
-         // Content Update Function
-         public function contentUpdate(Request $request){
-            $validated = $request->validate([
-                'subCategory_id' => 'required',
-                'description' => 'required',
-            ]);
+    // Content View Function
+    public function contentViewFrom($id)
+    {
+        try {
+            $contents = BrainBalanceContents::find($id);
+            $subCategory = BrainBalanceSubCategory::where('status', 1)->get();
+            return view('backend.brainBalance.brainBalanceContent.view', compact('subCategory','contents'));
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 
-            try{
-                $contentUpdate = BrainBalanceContents::find($request->id);
-                $contentUpdate->subCategory_id = $request->subCategory_id;
-                $contentUpdate->sub_cate_title = $request->sub_cate_title;
-                $contentUpdate->description = $request->description;
-                $contentUpdate->images = $request->images;
-                $contentUpdate->files = $request->files;
-                $contentUpdate->update();
-                return redirect()->route('admin.brainBalContent')->with('success', "Content Add Successfully Done.!");
-                
-            }catch (Exception $e) {
-                dd($e->getMessage());
-            }
+
+    // Content Add From Function
+    public function contentAddFrom()
+    {
+        try {
+            $contents = BrainBalanceContents::get();
+            $subCategory = BrainBalanceSubCategory::where('status', 1)->get();
+            return view('backend.brainBalance.brainBalanceContent.add', compact('subCategory', 'contents'));
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
-    
-        // Content Delete Function
-        public function contentDelete($id){
-            try{
-                BrainBalanceContents::find($id)->delete();
-                return redirect()->route('admin.brainBalContent')->with('delete', "Content delete Successfully Done.!");
-            }catch (Exception $e) {
-                dd($e->getMessage());
-            }
+    }
+
+    // Content Store Function
+    public function contentStore(Request $request)
+    {
+        $validated = $request->validate([
+            'subCategory_id' => 'required',
+            'description' => 'required',
+            'uploadImages.*' => 'mimes:png,jpeg,jpg,gif',
+            'uploadfiles.*' => 'mimes:png,jpeg,jpg,gif',
+        ]);
+        // dd($request->all());
+        try {
+            $contentStore = new BrainBalanceContents();
+            $contentStore->subCategory_id = $request->subCategory_id;
+            $contentStore->sub_cate_title = $request->sub_cate_title;
+            $contentStore->description = $request->description;
+            $contentStore->images = json_encode($request->uploadImages);
+            $contentStore->filesData = json_encode($request->uploadfiles);
+
+            $contentStore->save();
+            return redirect()->route('admin.brainBalContent')->with('success', "Content Add Successfully Done.!");
+        } catch (Exception $e) {
+            dd($e->getMessage());
         }
+    }
+
+    // Content Edit Function
+    public function contentEditFrom($id)
+    {
+        try {
+            $contents = BrainBalanceContents::find($id);
+            $subCategory = BrainBalanceSubCategory::where('status', 1)->get();
+            return view('backend.brainBalance.brainBalanceContent.edit', compact('subCategory', 'contents'));
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+    // Content Update Function
+    public function contentUpdate(Request $request)
+    {
+        $validated = $request->validate([
+            'subCategory_id' => 'required',
+            'description' => 'required',
+            'uploadImages.*' => 'mimes:png,jpeg,jpg,gif',
+            'uploadfiles.*' => 'mimes:png,jpeg,jpg,gif',
+        ]);
+
+        try {
+            $contentUpdate = BrainBalanceContents::find($request->id);
+            $contentUpdate->subCategory_id = $request->subCategory_id;
+            $contentUpdate->sub_cate_title = $request->sub_cate_title;
+            $contentUpdate->description = $request->description;
+            $contentUpdate->images = json_encode($request->uploadImages);
+            $contentUpdate->filesData = json_encode($request->uploadfiles);
+            $contentUpdate->update();
+            return redirect()->route('admin.brainBalContent')->with('success', "Content Add Successfully Done.!");
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    // Content Delete Function
+    public function contentDelete($id)
+    {
+        try {
+            BrainBalanceContents::find($id)->delete();
+            return redirect()->route('admin.brainBalContent')->with('delete', "Content delete Successfully Done.!");
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 }
