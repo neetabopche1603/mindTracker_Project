@@ -168,11 +168,11 @@ jQuery(document).ready(function(){
 	});
 
 	// date picker
-	$('.date-picker').datepicker({
-		language: 'en',
-		autoClose: true,
-		dateFormat: 'dd MM yyyy',
-	});
+	// $('.date-picker').datepicker({
+	// 	language: 'en',
+	// 	autoClose: true,
+	// 	dateFormat: 'dd MM yyyy',
+	// });
 	$('.datetimepicker').datepicker({
 		timepicker: true,
 		language: 'en',

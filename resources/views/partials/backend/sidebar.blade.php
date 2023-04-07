@@ -17,9 +17,18 @@
 						</a>
 					</li>
 
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-library"></span><span class="mtext">Therapist</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="{{route('admin.therapist')}}">Therapist List</a></li>
+						</ul>
+					</li>
+
 					<li>
-						<a href="#" class="dropdown-toggle no-arrow {{ request()->is('admin/onboarding') ? 'active' : '' }}" class="dropdown-toggle no-arrow">
-							<span class="micon dw dw-diagram"></span><span class="mtext">Tharapist</span>
+						<a href="{{route('admin.appointments')}}" class="dropdown-toggle no-arrow {{ request()->is('admin/appointments') ? 'active' : '' }}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-diagram"></span><span class="mtext">Appointments</span>
 						</a>
 					</li>
 

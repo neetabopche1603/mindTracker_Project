@@ -1,5 +1,5 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'Add Content (BrainBalance)')
+@section('adminTitle', 'Add Appointments')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Brain Balance >Content</li>
+                            <li class="breadcrumb-item active" aria-current="page">Appointments</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,7 +22,7 @@
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Add Content</h4>
+                    <h4 class="text-blue h4">Add Appointments</h4>
                     <p class="mb-30">Add To Form Details</p>
                 </div>
                 <div class="pull-right">
@@ -31,30 +31,38 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-           <form method="post" action="{{route('admin.brainBalContentStore')}}" type="multfor" enctype="multipart/form-data"> 
+
+            <form method="post" action="{{route('admin.appointmentsStore')}}" type="multfor">
                 @csrf
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Sub Categories : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">User : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <select class="form-control" name="subCategory_id" id="">
-                            <option value="" selected disabled>Select SubCategory</option>
-                            @foreach ($subCategory as $subCate)
-                            <option value="{{$subCate->id}}">{{$subCate->sub_category_name}}</b></option>
+                        <select class="form-control" name="user_id" id="">
+                            <option value="" selected disabled>Select Users</option>
+                            @foreach ($users as $user)
+                            <option value="{{$user->id}}" >{{$user->name}}</b></option>
                             @endforeach
                         </select>
                         <span class="text-danger">
-                            @error('subCategory_id')
+                            @error('user_id')
                             {{$message}}
                             @enderror
                         </span>
                     </div>
                 </div>
+
+
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Title :</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Tharapist : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control" name="sub_cate_title" value="{{old('sub_cate_title')}}">
+                        <select class="form-control" name="therapist_id" id="">
+                            <option value="" selected disabled>Select Tharapist</option>
+                            @foreach ($therapist as $therapisData)
+                            <option value="{{$therapisData->id}}">{{$therapisData->name}}</b></option>
+                            @endforeach
+                        </select>
                         <span class="text-danger">
-                            @error('sub_cate_title')
+                            @error('therapist_id')
                             {{$message}}
                             @enderror
                         </span>
@@ -62,23 +70,14 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Description : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Date : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <textarea cols="80" id="editor1" value="{{ old('description') }}" name="description" value="" rows="10"></textarea>
+                        <input type="text" class="form-control appointmentDatePicker" id="appointmentDatePicker" name="appointmentDate" value="{{old('appointmentDate')}}" placeholder="Select Date">
+                       {{-- DATE TIME SELECT
+                        <input class="form-control datetimepicker" placeholder="Choose Date anf time" type="text">
+                        --}}
                         <span class="text-danger">
-                            @error('description')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Upload Image :</label>
-                    <div class="col-sm-12 col-md-10 fallback">
-                        <input type="file" name="uploadImages" class="form-control">
-                        <span class="text-danger">
-                            @error('uploadImages')
+                            @error('appointmentDate')
                             {{$message}}
                             @enderror
                         </span>
@@ -86,20 +85,21 @@
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Upload Files :</label>
-                    <div class="col-sm-12 col-md-10 fallback">
-                        <input type="file" name="uploadfiles[]" multiple class="form-control">
+                    <label class="col-sm-12 col-md-2 col-form-label">Time : <span class="text-danger">*</span></label>
+                    <div class="col-sm-12 col-md-10">
+                        <input type="text" class="form-control time-picker" name="appointmentTime" value="{{old('appointmentTime')}}" placeholder="Select time" >
                         <span class="text-danger">
-                            @error('uploadfiles')
+                            @error('appointmentTime')
                             {{$message}}
                             @enderror
                         </span>
                     </div>
                 </div>
-               
+
                 <div class="float-right">
                     <input type="submit" class="btn btn-warning" value="Save">
                 </div>
+
             </form>
         </div>
 
@@ -108,18 +108,16 @@
     </div>
     </div>
     <!-- Default Basic Forms End -->
-
     </div>
 
 @endsection
-
 @push('script')
-    <!-- CK EDITOR SCRIPT START -->
-    <script>
-        // We need to turn off the automatic editor creation first.
-        CKEDITOR.disableAutoInline = true;
-
-        CKEDITOR.replace('description');
-    </script>
-    <!-- CK EDITOR SCRIPT  -->
-    @endpush
+<script>
+    $('#appointmentDatePicker').datepicker({
+		minDate: new Date(),
+		language: 'en',
+		autoClose: true,
+		dateFormat: 'dd MM yyyy',
+	});
+</script>
+@endpush

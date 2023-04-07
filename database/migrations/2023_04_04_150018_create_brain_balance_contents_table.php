@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('sub_cate_title')->nullable();
             $table->longText('description');
             $table->string('images')->nullable();
-            $table->string('files')->nullable();
+            $table->longText('files')->nullable();
             $table->timestamps();
             $table->foreign('subCategory_id')->references('id')->on('brain_balance_sub_categories')->onDelete('cascade');
         });

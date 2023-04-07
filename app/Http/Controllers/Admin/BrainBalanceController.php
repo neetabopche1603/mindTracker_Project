@@ -159,6 +159,8 @@ class BrainBalanceController extends Controller
             if ($request->ajax()) {
                 // $data = BrainBalanceSubCategory::all();
                 $data = DB::table('brain_balance_sub_categories')->join('brain_balance_categories', 'brain_balance_categories.id', '=', 'brain_balance_sub_categories.category_id')->where('brain_balance_categories.status', 1)->select('brain_balance_sub_categories.*', 'brain_balance_categories.category_name')->get();
+
+
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('status', function ($row) {
@@ -303,7 +305,7 @@ class BrainBalanceController extends Controller
 
                 $data = DB::table('brain_balance_contents')->join('brain_balance_sub_categories', 'brain_balance_sub_categories.id', '=', 'brain_balance_contents.subCategory_id')->where('brain_balance_sub_categories.status', 1)->select('brain_balance_contents.*', 'brain_balance_sub_categories.sub_category_name')->get();
 
-               
+
 
                 return Datatables::of($data)
                     ->addIndexColumn()
@@ -327,7 +329,7 @@ class BrainBalanceController extends Controller
 
                         return $btn;
                     })
-                    ->rawColumns(['action','description'])
+                    ->rawColumns(['action', 'description'])
                     ->make(true);
             }
 
@@ -343,7 +345,7 @@ class BrainBalanceController extends Controller
         try {
             $contents = BrainBalanceContents::find($id);
             $subCategory = BrainBalanceSubCategory::where('status', 1)->get();
-            return view('backend.brainBalance.brainBalanceContent.view', compact('subCategory','contents'));
+            return view('backend.brainBalance.brainBalanceContent.view', compact('subCategory', 'contents'));
         } catch (Exception $e) {
             dd($e->getMessage());
         }
@@ -377,8 +379,20 @@ class BrainBalanceController extends Controller
             $contentStore->subCategory_id = $request->subCategory_id;
             $contentStore->sub_cate_title = $request->sub_cate_title;
             $contentStore->description = $request->description;
-            $contentStore->images = json_encode($request->uploadImages);
-            $contentStore->filesData = json_encode($request->uploadfiles);
+            if ($request->hasFile('uploadImages')) {
+                $file = $request->file('uploadImages');
+                $name = $file->getClientOriginalName();
+                $contentStore->images = $name;
+            }
+            $filesData = [];
+            if ($request->hasFile('uploadfiles')) {
+                $files = $request->file('uploadfiles');
+                foreach ($files as $file) {
+                    $name = $file->getClientOriginalName();
+                    array_push($filesData, $name);
+                }
+            }
+            $contentStore->files = json_encode($filesData, true);
 
             $contentStore->save();
             return redirect()->route('admin.brainBalContent')->with('success', "Content Add Successfully Done.!");
