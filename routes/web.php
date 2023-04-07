@@ -4,9 +4,12 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\BrainBalanceController;
+use App\Http\Controllers\Admin\MoodTrackController;
 use App\Http\Controllers\Admin\OnboardingController;
+use App\Http\Controllers\Admin\ReviewsController;
 use App\Http\Controllers\Admin\SelfCareController;
 use App\Http\Controllers\Admin\TherapistController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Therapist\TherapistAuthController;
 use App\Http\Controllers\Therapist\TherapistHomeController;
@@ -45,6 +48,7 @@ Route::prefix('admin')->group(function () {
 
     //==============Onboarding Questions Route Start==============
     Route::controller(OnboardingController::class)->group(function () {
+         // ---------------ONBOARDING QUESTIONS AND OPTIONS CRUD ROUTES START------------------
         Route::get('onboarding', 'onboardingQueIndex')->name('admin.onboardingQueIndex');
         Route::get('view-onboarding/{id}', 'onboardingQuesViewFrom')->name('admin.onboardingQuesViewFrom');
 
@@ -55,15 +59,28 @@ Route::prefix('admin')->group(function () {
         Route::post('edit-onboarding', 'onboardingQuesUpdate')->name('admin.onboardingQuesUpdate');
 
         Route::get('delete-onboarding/{id}', 'onboardingQuesDelete')->name('admin.onboardingQuesDelete');
+
+        // -------------ONBOARDING QUESTIONS AND OPTIONS CRUD ROUTES END------------------
+
+       // --------------USERs ONBOARDING QUESTIONS AND ANS LIST SHOW ROUTES START---------
+       Route::get('user-onboarding','showUserOnboardQuesAnsList')->name('admin.userOnboardQuesAnsList');
+       Route::get('user-onboard-view/{id}','userOnboardQuesAnsView')->name('admin.userOnboardQuesAnsView');
+
+       Route::get('user-onboard-delete/{id}','userOnboardQuesAnsDelete')->name('admin.userOnboardQuesAnsDelete');
+
+       // --------------USERs ONBOARDING QUESTIONS AND ANS LIST SHOW ROUTES END-----------
+
+
+
     });   //ADMIN ONBOARDING CONTROLLER CLOSEUP
 
-    /*
-        |---------------------------------------------------------------------
-        | BRAIN BALANCE CATEGORY AND SUBCATEGORY CONTROLLER ROUTE
-        |---------------------------------------------------------------------
-        */
+             /*
+            |---------------------------------------------------------------------
+            | BRAIN BALANCE CATEGORY AND SUBCATEGORY CONTROLLER ROUTE
+            |---------------------------------------------------------------------
+            */
 
-    Route::controller(BrainBalanceController::class)->group(function () {
+     Route::controller(BrainBalanceController::class)->group(function () {
         // -----------------CATEGORY ROUTES-------------------
         Route::get('brainBalance-category', 'category')->name('admin.brainCategory');
         Route::get('brainBalance-view-category/{id}', 'categoryViewForm')->name('admin.brainCateViewForm');
@@ -153,15 +170,15 @@ Route::prefix('admin')->group(function () {
 
     });  //ADMIN THERAPIST CONTROLLER CLOSEUP
 
-
-
     /*
         |---------------------------------------------------------------------
         |  APPOINTMENTS CONTROLLER ROUTE
         |---------------------------------------------------------------------
         */
-        // -------------------------------APPOINTMENTS CRUD START-------------------
+
+    // -------------------------APPOINTMENTS ROUTES START-------------------
     Route::controller(AppointmentController::class)->group(function () {
+
         Route::get('appointments', 'appointments')->name('admin.appointments');
         Route::get('appointments-view/{id}', 'appointmentsView')->name('admin.appointmentsView');
 
@@ -173,11 +190,67 @@ Route::prefix('admin')->group(function () {
 
         Route::get('appointments-delete/{id}', 'appointmentsDelete')->name('admin.appointmentsDelete');
 
-
-        // -------------------------------APPOINTMENTS CRUD END-------------------
+        // -------------------------------APPOINTMENTS ROUTES END-------------------
 
     });   //APPOINTMENTS CONTROLLER CLOSEUP
 
+
+    /*
+        |---------------------------------------------------------------------
+        |  REVIEWS & RATTING CONTROLLER ROUTE
+        |---------------------------------------------------------------------
+        */
+    // -------------------REVIEWS & RATTING START ROUTES------------------
+    Route::controller(ReviewsController::class)->group(function () {
+
+        Route::get('reviews', 'reviewsRatting')->name('admin.reviewsRatting');
+        Route::get('reviews-view/{id}', 'reviewsView')->name('admin.reviewsView');
+
+        Route::get('reviews-edit/{id}', 'reviewsEdit')->name('admin.reviewsEdit');
+        Route::post('reviews-edit', 'reviewsUpdate')->name('admin.reviewsUpdate');
+
+        Route::get('reviews-delete/{id}', 'reviewsDelete')->name('admin.reviewsDelete');
+    }); // REVIEWS CONTROLLER CLOSEUP
+
+    // ------------------REVIEWS & RATTING END ROUTES-------------------
+
+        /*
+        |---------------------------------------------------------------------
+        | USERS CONTROLLER ROUTE
+        |---------------------------------------------------------------------
+        */
+
+    Route::controller(UserController::class)->group(function () {
+        // -------------------------USERS CRUD ROUTES START--------------------
+        Route::get('users-list', 'usersList')->name('admin.usersList');
+        Route::get('users-view/{id}', 'userstViewForm')->name('admin.userstViewForm');
+
+        Route::get('users-add', 'usersAddForm')->name('admin.usersAddForm');
+        Route::post('users-store', 'usersStore')->name('admin.usersStore');
+
+        Route::get('users-edit/{id}', 'usersEditForm')->name('admin.usersEditForm');
+        Route::post('users-edit', 'usersUpdate')->name('admin.usersUpdate');
+
+        Route::get('users-delete/{id}', 'userDelete')->name('admin.userDelete');
+        // -------------------------USERS CRUD ROUTES END--------------------
+    });   // USER CONTROLLER CLOSEUP
+
+        /*
+        |---------------------------------------------------------------------
+        | MOOD TRACK CONTROLLER ROUTE
+        |---------------------------------------------------------------------
+        */
+        Route::controller(MoodTrackController::class)->group(function(){
+            Route::get('user-moodtype','moodtype')->name('admin.moodTypeList');
+
+            Route::get('moodtype-edit/{id}','moodTypeEditForm')->name('admin.moodTypeEditForm');
+            Route::post('moodtype-edit','moodTypeUpdate')->name('admin.moodTypeUpdate');
+
+            Route::get('moodtype-delete/{id}','moodTrackDelete')->name('admin.moodTrackDelete');
+
+        }); // MOOD TRACK CONTROLLER CLOSEUP
+
+    // -------------------------MOOD TRACK  CRUD ROUTES END--------------------
 
 
 });   //ADMIN PREFIX CLOSEUP

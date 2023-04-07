@@ -13,11 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('brain_balance_categories', function (Blueprint $table) {
+        Schema::create('user_onboarding_ques_ans', function (Blueprint $table) {
             $table->id();
-            $table->string('category_name');
-            $table->tinyInteger('status')->comment("1=Active,0=Block")->default(1);
+            $table->unsignedBigInteger('user_id');
+            $table->longText('ques_ans');  
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('brain_balance_categories');
+        Schema::dropIfExists('user_onboarding_ques_ans');
     }
 };

@@ -80,7 +80,7 @@
                     </div>
                 </div>
 
-                @if ($onboardingViewData->status==1)
+                {{-- @if ($onboardingViewData->status==1)
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                @endif
+                @endif --}}
                 {{-- <input type="submit" class="btn btn-primary" value="Save"> --}}
                 </form>
         </div>

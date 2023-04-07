@@ -1,5 +1,5 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'Therapist Add Form')
+@section('adminTitle', 'Users Add Form')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Therapist >Therapist List</li>
+                            <li class="breadcrumb-item active" aria-current="page">Users >Users List</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,7 +22,7 @@
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Add Therapist</h4>
+                    <h4 class="text-blue h4">Add User</h4>
                     <p class="mb-30">Add To Form Details</p>
                 </div>
                 <div class="pull-right">
@@ -31,7 +31,7 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-            <form method="post" action="{{url('admin/therapist-store')}}" type="multfor" enctype="multipart/form-data">
+            <form method="post" action="{{url('admin/users-store')}}" type="multfor" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group row">
                     <div class="col-sm-6 col-md-6">

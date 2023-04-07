@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('self_care_categories', function (Blueprint $table) {
             $table->id();
             $table->string('self_cate_name');
-            $table->tinyInteger('status')->comment("1=Unblock,0=Block")->default(1);
+            $table->tinyInteger('status')->comment("1=Active,0=Block")->default(1);
             $table->timestamps();
         });
     }

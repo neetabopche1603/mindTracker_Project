@@ -65,12 +65,12 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio1" name="status" value="0" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio1">BLOCK</label>
+                            <input type="radio" id="block" name="status" value="0" class="custom-control-input">
+                            <label class="custom-control-label" for="block">BLOCK</label>
                         </div>
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio2" name="status" value="1"  class="custom-control-input" checked>
-                            <label class="custom-control-label" for="customRadio2">UNBLOCK</label>
+                            <input type="radio" id="active" name="status" value="1"  class="custom-control-input" checked>
+                            <label class="custom-control-label" for="active">ACTIVE</label>
                         </div>
                         <span class="text-danger">
                             @error('status')

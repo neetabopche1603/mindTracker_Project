@@ -57,7 +57,7 @@
                         </div>
                         <div class="custom-control custom-radio mb-5">
                             <input type="radio" id="customRadio2" name="status" value="1"  class="custom-control-input"  @if ($selfCategoryEdit->status == 1) checked @endif>
-                            <label class="custom-control-label" for="customRadio2">UNBLOCK</label>
+                            <label class="custom-control-label" for="customRadio2">ACTIVE</label>
                         </div>
                         <span class="text-danger">
                             @error('status')

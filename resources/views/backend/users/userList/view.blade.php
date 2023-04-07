@@ -1,5 +1,5 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'View Category (BrainBalance)')
+@section('adminTitle', 'View Users Details')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Brain Balance > Category</li>
+                            <li class="breadcrumb-item active" aria-current="page">Users > Users List</li>
                         </ol>
                     </nav>
                 </div>
@@ -30,7 +30,7 @@
                         {{-- <a href="modal" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="fa fa-pencil"></i></a> --}}
                         <a href="modal" data-toggle="modal" data-target="#modal" >
 
-                        <img src="{{asset('profilesImages')}}/{{$therapistView->avatar}}" alt="Avatar" class="avatar-photo img-thumbnail" width="100" height="80">
+                        <img src="{{asset('profilesImages')}}/{{$userstViewForm->avatar}}" alt="Avatar" class="avatar-photo img-thumbnail" width="100" height="80">
 
                     </a>
                         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -39,7 +39,7 @@
                                     <div class="modal-body pd-5">
                                         <div class="img-container text-center">
                                             <h5 class="mb-20 mt-2 h5 text-blue">Profile Picture</h5>
-                                            <img id="image" src="{{asset('profilesImages')}}/{{$therapistView->avatar}}" alt="Picture" width="350" height="150">
+                                            <img id="image" src="{{asset('profilesImages')}}/{{$userstViewForm->avatar}}" alt="Picture" width="350" height="150">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -50,9 +50,9 @@
                             </div>
                         </div>
                     </div>
-                    <h5 class="text-center h5 mb-0">{{$therapistView->name}}</h5>
+                    <h5 class="text-center h5 mb-0">{{$userstViewForm->name}}</h5>
                     <p class="text-center text-muted font-14">
-                        @if($therapistView->role==1)
+                        @if($userstViewForm->role==1)
                           <b>Therapist</b>
                       @endif
                     </p>
@@ -63,15 +63,15 @@
                                 <ul>
                                     <li>
                                         <span>Email Address:</span>
-                                        {{$therapistView->email}}
+                                        {{$userstViewForm->email}}
                                     </li>
                                     <li>
                                         <span>Phone Number:</span>
-                                        {{$therapistView->mobile_number}}
+                                        {{$userstViewForm->mobile_number}}
                                     </li>
                                     <li>
                                         <span>Address:</span>
-                                        {!! $therapistView->address !!}
+                                        {!! $userstViewForm->address !!}
                                     </li>
                                 </ul>
                             </div>
@@ -84,20 +84,20 @@
                                 <ul>
                                     <li>
                                         <span>Bio:</span>
-                                        {{$therapistView->bio}}
+                                        {{$userstViewForm->bio}}
                                     </li>
                                     <li>
                                         <span>Ocupation:</span>
-                                        {{$therapistView->ocupation}}
+                                        {{$userstViewForm->ocupation}}
                                     </li>
                                     <li>
                                         <span>Gender:</span>
-                                        {!! $therapistView->gender !!}
+                                        {!! $userstViewForm->gender !!}
         
                                     </li>
                                     <li>
                                         <span>status:</span>
-                                      @if ($therapistView->status==1)
+                                      @if ($userstViewForm->status==1)
                                       <b class="badge badge-success">Active</b>
                                       @else
                                       <b class="badge badge-success">Block</b>

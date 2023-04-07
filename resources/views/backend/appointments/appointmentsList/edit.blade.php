@@ -73,12 +73,12 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Date : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control date-picker" name="date" value="{{$appointmentsEdit->date}}" placeholder="Select Date">
+                        <input type="text" class="form-control date-picker" name="appointmentDate" value="{{$appointmentsEdit->date}}" placeholder="Select appointment date">
                        {{-- DATE TIME SELECT
                         <input class="form-control datetimepicker" placeholder="Choose Date anf time" type="text">
                         --}}
                         <span class="text-danger">
-                            @error('date')
+                            @error('appointmentDate')
                             {{$message}}
                             @enderror
                         </span>
@@ -88,9 +88,9 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Time : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control time-picker" name="time" value="{{$appointmentsEdit->time}}" placeholder="Select time" >
+                        <input type="text" class="form-control time-picker" name="appointmentTime" value="{{$appointmentsEdit->time}}" placeholder="Select appointment time" >
                         <span class="text-danger">
-                            @error('time')
+                            @error('appointmentTime')
                             {{$message}}
                             @enderror
                         </span>
@@ -101,17 +101,17 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio1" name="booking_status" value="upcomming" class="custom-control-input"  @if ($appointmentsEdit->booking_status == 'upcomming') checked @endif>
-                            <label class="custom-control-label" for="customRadio1">Upcomming</label>
+                            <input type="radio" id="upcomming" name="booking_status" value="upcomming" class="custom-control-input"  @if ($appointmentsEdit->booking_status == 'upcomming') checked @endif>
+                            <label class="custom-control-label" for="upcomming">Upcomming</label>
                         </div>
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio2" name="booking_status" value="cancel"  class="custom-control-input"  @if ($appointmentsEdit->booking_status == 'cancel') checked @endif>
-                            <label class="custom-control-label" for="customRadio2">Cancel</label>
+                            <input type="radio" id="cancel" name="booking_status" value="cancel"  class="custom-control-input"  @if ($appointmentsEdit->booking_status == 'cancel') checked @endif>
+                            <label class="custom-control-label" for="cancel">Cancel</label>
                         </div>
 
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio3" name="booking_status" value="completed"  class="custom-control-input"  @if ($appointmentsEdit->booking_status == 'completed') checked @endif>
-                            <label class="custom-control-label" for="customRadio3">Completed</label>
+                            <input type="radio" id="completed" name="booking_status" value="completed"  class="custom-control-input"  @if ($appointmentsEdit->booking_status == 'completed') checked @endif>
+                            <label class="custom-control-label" for="completed">Completed</label>
                         </div>
                         <span class="text-danger">
                             @error('booking_status')

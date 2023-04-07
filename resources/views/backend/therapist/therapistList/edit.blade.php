@@ -173,9 +173,9 @@
                             <label class="custom-control-label" for="block">BLOCK</label>
                         </div>
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="unblock" name="status" value="1"
+                            <input type="radio" id="active" name="status" value="1"
                                 class="custom-control-input" @if ($therapistEdit->status == 1) checked @endif>
-                            <label class="custom-control-label" for="unblock">UNBLOCK</label>
+                            <label class="custom-control-label" for="active">ACTIVE</label>
                         </div>
                         <span class="text-danger">
                             @error('status')

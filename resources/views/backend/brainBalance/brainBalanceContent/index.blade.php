@@ -36,8 +36,8 @@
                 <thead>
                     <tr>
                         <th>No</th>
-                        <th>Images</th>
-                        <th>Files</th>
+                        {{-- <th>Images</th>
+                        <th>Files</th> --}}
                         <th>Sub Category</th>
                         <th>Title</th>
                         <th>Description</th>
@@ -64,8 +64,8 @@
           ajax: "{{ route('admin.brainBalContent') }}",
           columns: [
               {data: 'id', name: 'id'},
-              {data: 'images', name: 'images'},
-              {data: 'files', name: 'files'},
+            //   {data: 'images', name: 'images'},
+            //   {data: 'files', name: 'files'},
               {data: 'sub_category_name', name: 'sub_category_name'},
               {data: 'sub_cate_title', name: 'sub_cate_title'},
               {data: 'description', name: 'description'},

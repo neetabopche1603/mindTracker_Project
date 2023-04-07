@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->longtext('questions');
             $table->string('options');
-            $table->tinyInteger('status')->comment("1=Unblock,0=Block")->default(1);
+            $table->tinyInteger('status')->comment("1=Active,0=Block")->default(1);
             $table->timestamps();
         });
     }

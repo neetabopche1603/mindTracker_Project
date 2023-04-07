@@ -1,17 +1,17 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'Therapist Add Form')
+@section('adminTitle', 'User Edit Form')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Add Form</h4>
+                        <h4>Edit Form</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Therapist >Therapist List</li>
+                            <li class="breadcrumb-item active" aria-current="page">Users >User List</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,8 +22,8 @@
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Add Therapist</h4>
-                    <p class="mb-30">Add To Form Details</p>
+                    <h4 class="text-blue h4">Edit User</h4>
+                    <p class="mb-30">Edit To Form Details</p>
                 </div>
                 <div class="pull-right">
                     <a href="javascript:void(0);" onclick="window.history.back()"
@@ -31,12 +31,13 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-            <form method="post" action="{{url('admin/therapist-store')}}" type="multfor" enctype="multipart/form-data">
+            <form method="post" action="{{route('admin.usersUpdate')}}" type="multfor" enctype="multipart/form-data">
                 @csrf
+                <input type="hidden" name="id" value="{{$usersEdit->id}}">
                 <div class="form-group row">
                     <div class="col-sm-6 col-md-6">
                         <label class="col-form-label">Name : <span class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="name" value="{{ old('name') }}">
+                        <input type="text" class="form-control" name="name" value="{{$usersEdit->name}}">
                         <span class="text-danger">
                             @error('name')
                                 {{ $message }}
@@ -46,7 +47,7 @@
 
                     <div class="col-sm-6 col-md-6">
                         <label class="col-form-label">Email : <span class="text-danger">*</span></label>
-                        <input type="email" class="form-control" name="email" value="{{ old('email') }}">
+                        <input type="email" class="form-control" name="email" value="{{$usersEdit->email}}">
                         <span class="text-danger">
                             @error('email')
                                 {{ $message }}
@@ -79,7 +80,7 @@
                     <div class="col-sm-6 col-md-6">
                         <label class="col-form-label">Bio : <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="bio" value="{{old('bio')}}">
+                        <input type="text" class="form-control" name="bio" value="{{$usersEdit->bio}}">
                         <span class="text-danger">
                             @error('bio')
                                 {{ $message }}
@@ -90,7 +91,7 @@
                     <div class="col-sm-6 col-md-6">
                         <label class="col-form-label">Ocupation : <span
                                 class="text-danger">*</span></label>
-                        <input type="text" class="form-control" name="ocupation" value="{{old('ocupation')}}">
+                        <input type="text" class="form-control" name="ocupation" value="{{$usersEdit->ocupation}}">
                         <span class="text-danger">
                             @error('ocupation')
                                 {{ $message }}
@@ -101,7 +102,7 @@
                     <div class="col-sm-6 col-md-6">
                         <label class="col-form-label">Mobile Number : <span
                                 class="text-danger">*</span></label>
-                        <input type="number" class="form-control" name="mobile_number" value="{{old('mobile_number')}}">
+                        <input type="number" class="form-control" name="mobile_number" value="{{$usersEdit->mobile_number}}">
                         <span class="text-danger">
                             @error('mobile_number')
                                 {{ $message }}
@@ -110,20 +111,29 @@
                     </div>
 
                     <div class="col-sm-6 col-md-6">
-                        <label class="col-form-label">Avatar : <span
-                                class="text-danger">*</span></label>
-                        <input type="file" class="form-control" name="avatar" value="">
-                        <span class="text-danger">
-                            @error('avatar')
-                                {{ $message }}
-                            @enderror
-                        </span>
+                        <div class="row">
+                            <div class="col-8">
+                                <label class="col-form-label">Avatar : <span
+                                    class="text-danger">*</span></label>
+                            <input type="file" class="form-control" name="avatar" value="">
+                           
+                            <span class="text-danger">
+                                @error('avatar')
+                                    {{ $message }}
+                                @enderror
+                            </span>
+                            </div>
+                            <div class="col-4 mt-4">
+                                <img src="{{asset('profilesImages')}}/{{$usersEdit->avatar}}" alt="Avatar" class="img-thumbnail" width="70" height="70">
+                            </div>
+                        </div>
+                        
                     </div>
 
                     <div class="col-sm-12 col-md-12">
                         <label class="col-form-label">Address : <span
                                 class="text-danger">*</span></label>
-                                <textarea cols="80" id="editor1" value="{{ old('address') }}" name="address" value="" rows="10"></textarea>
+                                <textarea cols="80" id="editor1" name="address" rows="10">{{$usersEdit->address}}</textarea>
                         <span class="text-danger">
                             @error('address')
                                 {{ $message }}
@@ -135,18 +145,18 @@
                         <label class="col-form-label">Gender : <span class="text-danger">*</span></label>
                         <div class="custom-control custom-radio mb-5">
                             <input type="radio" id="male" name="gender" value="male"
-                                class="custom-control-input">
+                                class="custom-control-input" @if ($usersEdit->gender == 'male') checked @endif>
                             <label class="custom-control-label" for="male">Male</label>
                         </div>
                         <div class="custom-control custom-radio mb-5">
                             <input type="radio" id="female" name="gender" value="female"
-                                class="custom-control-input">
+                                class="custom-control-input" @if ($usersEdit->gender == 'female') checked @endif>
                             <label class="custom-control-label" for="female">Female</label>
                         </div>
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="other" name="gender" value="other"
-                                class="custom-control-input">
-                            <label class="custom-control-label" for="other">Other</label>
+                            <input type="radio" id="others" name="gender" value="other"
+                                class="custom-control-input" @if ($usersEdit->gender == 'other') checked @endif>
+                            <label class="custom-control-label" for="others">Other</label>
                         </div>
                         <span class="text-danger">
                             @error('gender')
@@ -159,12 +169,12 @@
                         <label class="col-form-label">Status : <span class="text-danger">*</span></label>
                         <div class="custom-control custom-radio mb-5">
                             <input type="radio" id="block" name="status" value="0"
-                                class="custom-control-input">
+                                class="custom-control-input" @if ($usersEdit->status == 0) checked @endif>
                             <label class="custom-control-label" for="block">BLOCK</label>
                         </div>
                         <div class="custom-control custom-radio mb-5">
                             <input type="radio" id="active" name="status" value="1"
-                                class="custom-control-input" checked>
+                                class="custom-control-input" @if ($usersEdit->status == 1) checked @endif>
                             <label class="custom-control-label" for="active">ACTIVE</label>
                         </div>
                         <span class="text-danger">
@@ -175,7 +185,7 @@
                     </div>
                 </div>
                 <div class="float-right">
-                    <input type="submit" class="btn btn-warning" value="Save">
+                    <input type="submit" class="btn btn-warning" value="Update">
                 </div>
             </form>
         </div>

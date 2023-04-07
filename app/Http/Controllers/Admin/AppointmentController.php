@@ -151,8 +151,8 @@ class AppointmentController extends Controller
         $validated = $request->validate([
             'user_id' => 'required',
             'therapist_id' => 'required',
-            'date' => 'required',
-            'time' => 'required',
+            'appointmentDate' => 'required',
+            'appointmentTime' => 'required',
             'booking_status' => 'required',
         ]);
 
@@ -160,8 +160,8 @@ class AppointmentController extends Controller
             $appointmentsUpdate = Appointment::find($request->id);
             $appointmentsUpdate->user_id = $request->user_id;
             $appointmentsUpdate->therapist_id = $request->therapist_id;
-            $appointmentsUpdate->date = $request->date;
-            $appointmentsUpdate->time = $request->time;
+            $appointmentsUpdate->date = $request->appointmentDate;
+            $appointmentsUpdate->time = $request->appointmentTime;
             $appointmentsUpdate->booking_status = $request->booking_status;
 
             $appointmentsUpdate->update();

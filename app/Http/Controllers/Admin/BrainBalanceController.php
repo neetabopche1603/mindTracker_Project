@@ -160,7 +160,6 @@ class BrainBalanceController extends Controller
                 // $data = BrainBalanceSubCategory::all();
                 $data = DB::table('brain_balance_sub_categories')->join('brain_balance_categories', 'brain_balance_categories.id', '=', 'brain_balance_sub_categories.category_id')->where('brain_balance_categories.status', 1)->select('brain_balance_sub_categories.*', 'brain_balance_categories.category_name')->get();
 
-
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('status', function ($row) {
@@ -305,8 +304,6 @@ class BrainBalanceController extends Controller
 
                 $data = DB::table('brain_balance_contents')->join('brain_balance_sub_categories', 'brain_balance_sub_categories.id', '=', 'brain_balance_contents.subCategory_id')->where('brain_balance_sub_categories.status', 1)->select('brain_balance_contents.*', 'brain_balance_sub_categories.sub_category_name')->get();
 
-
-
                 return Datatables::of($data)
                     ->addIndexColumn()
                     ->addColumn('description', function ($row) {
@@ -371,7 +368,7 @@ class BrainBalanceController extends Controller
             'subCategory_id' => 'required',
             'description' => 'required',
             'uploadImages.*' => 'mimes:png,jpeg,jpg,gif',
-            'uploadfiles.*' => 'mimes:png,jpeg,jpg,gif',
+            'uploadfiles.*' => 'required|mimes:mp4,mov,ogg,qt,audio/mpeg,mpga,wav,png,jpeg,jpg,gif|max:100000',
         ]);
         // dd($request->all());
         try {
@@ -379,16 +376,22 @@ class BrainBalanceController extends Controller
             $contentStore->subCategory_id = $request->subCategory_id;
             $contentStore->sub_cate_title = $request->sub_cate_title;
             $contentStore->description = $request->description;
+            // image upload 
             if ($request->hasFile('uploadImages')) {
-                $file = $request->file('uploadImages');
-                $name = $file->getClientOriginalName();
-                $contentStore->images = $name;
+                if ($reqImg = $request->file('uploadImages')) {
+                    $destinationPath = '/brainBalanceFiles/images/';
+                    $contentImg = date('YmdHis') . "." . $reqImg->getClientOriginalExtension();
+                    $reqImg->move(public_path() . $destinationPath, $contentImg);
+                    $contentStore->images = $contentImg;
+                }
             }
+
+            // Upload Multiple Files
             $filesData = [];
             if ($request->hasFile('uploadfiles')) {
                 $files = $request->file('uploadfiles');
                 foreach ($files as $file) {
-                    $name = $file->getClientOriginalName();
+                    $name =  date('YmdHis') . "." . $file->getClientOriginalName();
                     array_push($filesData, $name);
                 }
             }

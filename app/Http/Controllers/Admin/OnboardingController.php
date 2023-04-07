@@ -4,12 +4,13 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\OnboardingQue;
+use App\Models\UserOnboardingQuesAns;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
 class OnboardingController extends Controller
 {
-
     // Onboarding View Table function
     public function onboardingQueIndex(Request $request)
     {
@@ -155,4 +156,67 @@ public function onboardingQuesViewFrom($id)
             dd($e->getMessage());
         }
     }
+
+
+ /*
+        |---------------------------------------------------------------------
+        | USER ONBOARDING QUESTION ANS FUNCTION START
+        |---------------------------------------------------------------------
+        */
+        // Show Question Ans List Show Function
+        
+        public function showUserOnboardQuesAnsList(Request $request){
+            try {
+                if ($request->ajax()) {
+                    $data = DB::table('user_onboarding_ques_ans')->join('users','users.id','=','user_onboarding_ques_ans.user_id')->select('user_onboarding_ques_ans.*','users.id as userId','users.name as user_name')->get();
+                    return Datatables::of($data)
+                          
+                            ->addColumn('ques_ans', function ($row) {
+                                // return strip_tags($row->questions);
+                                 return json_encode($row->ques_ans);
+                            })
+                            ->addColumn('action', function($row){
+             
+                                   $btn = '<div class="dropdown">
+                                   <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                       <i class="dw dw-more"></i>
+                                   </a>
+                                   <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                       <a class="dropdown-item" href="'.route('admin.userOnboardQuesAnsView', $row->id).'" class="text-warning"><i class="dw dw-eye text-warning"></i> View</a>
+    
+                                       <a class="dropdown-item" href="'.route('admin.userOnboardQuesAnsDelete',$row->id) .'" onclick="return confirm(`Are you sure delete this data`)"><i class="dw dw-delete-3 text-danger"></i> Delete</a>
+                                   </div>
+                               </div>';
+            
+                                    return $btn;
+                            })
+                            ->rawColumns(['action','ques_ans'])
+                            ->make(true);
+                }
+    
+                return view('backend.users.showOnbordQuesAnsList.index');
+            } catch (Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+
+        // View Onboarding Ques Ans
+        public function userOnboardQuesAnsView($id){
+            try{
+                $userOnboardQuesAnsView = DB::table('user_onboarding_ques_ans')->join('users','users.id','=','user_onboarding_ques_ans.user_id')->select('user_onboarding_ques_ans.*','users.id as userId','users.name as user_name')->get();
+                return view('backend.users.showOnbordQuesAnsList.view',compact('userOnboardQuesAnsView'));
+            }catch (Exception $e) {
+                dd($e->getMessage());
+            }
+        }
+
+        // View Onboarding Ques Ans
+        public function userOnboardQuesAnsDelete($id){
+            try{
+                UserOnboardingQuesAns::find($id)->delete();
+               return redirect()->route('admin.showUserOnboardQuesAnsList')->with('delete','Question Deleted Successfully Done.!');
+            }catch (Exception $e) {
+                dd($e->getMessage());
+            }
+        }
 }

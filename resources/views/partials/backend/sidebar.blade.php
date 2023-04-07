@@ -33,6 +33,28 @@
 					</li>
 
 					<li>
+						<a href="{{route('admin.reviewsRatting')}}" class="dropdown-toggle no-arrow {{ request()->is('admin/reviews') ? 'active' : '' }}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-diagram"></span><span class="mtext">Ratings & Reviews</span>
+						</a>
+					</li>
+
+
+					<li class="dropdown">
+						<a href="javascript:;" class="dropdown-toggle">
+							<span class="micon dw dw-library"></span><span class="mtext">Users</span>
+						</a>
+						<ul class="submenu">
+							<li><a href="{{route('admin.usersList')}}">Users List</a></li>
+						</ul>
+					</li>
+
+					<li>
+						<a href="{{route('admin.userOnboardQuesAnsList')}}" class="dropdown-toggle no-arrow {{ request()->is('admin/user-onboarding') ? 'active' : '' }}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-diagram"></span><span class="mtext">User Onboarding</span>
+						</a>
+					</li>
+
+					<li>
 						<a href="{{route('admin.onboardingQueIndex')}}" class="dropdown-toggle no-arrow {{ request()->is('admin/onboarding') ? 'active' : '' }}" class="dropdown-toggle no-arrow">
 							<span class="micon dw dw-diagram"></span><span class="mtext">Onboarding</span>
 						</a>
@@ -57,6 +79,12 @@
 							<li><a href="{{route('admin.selfCategory')}}">Category</a></li>
 							<li><a href="#">Contents</a></li>
 						</ul>
+					</li>
+
+					<li>
+						<a href="{{route('admin.moodTypeList')}}" class="dropdown-toggle no-arrow {{ request()->is('admin/user-moodtype') ? 'active' : '' }}" class="dropdown-toggle no-arrow">
+							<span class="micon dw dw-diagram"></span><span class="mtext">User Mood Track</span>
+						</a>
 					</li>
 
 					<li>

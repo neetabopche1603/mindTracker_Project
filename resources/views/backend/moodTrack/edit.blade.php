@@ -1,17 +1,17 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'Add Category Selfcare (Activities)')
+@section('adminTitle', 'Edit Category (BrainBalance)')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
             <div class="row">
                 <div class="col-md-6 col-sm-12">
                     <div class="title">
-                        <h4>Add Form</h4>
+                        <h4>Edit Form</h4>
                     </div>
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page"> Selfcare Activities >Category</li>
+                            <li class="breadcrumb-item active" aria-current="page">Brain Balance >Category</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,7 +22,7 @@
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Add Category</h4>
+                    <h4 class="text-blue h4">Edit Category</h4>
                     <p class="mb-30">Add To Form Details</p>
                 </div>
                 <div class="pull-right">
@@ -31,41 +31,48 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-            <form method="post" action="{{route('admin.selfCategoryStore')}}" type="multfor">
+            <form method="post" action="{{ route('admin.moodTypeUpdate') }}" type="multfor">
                 @csrf
+                <input type="hidden" name="id" value="{{ $moodTypeEditForm->id }}">
+    
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Category Name : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">User : <span
+                            class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control" name="self_cate_name" value="{{old('self_cate_name')}}">
+                        <select class="form-control" name="user_id" id="">
+                            <option value="" selected disabled>Select User</option>
+                            @foreach ($users as $user)
+                                <option value="{{ $user->id }}"
+                                    {{ $user->id == $moodTypeEditForm->user_id ? 'selected' : '' }}>
+                                    {{ $user->name }}</b></option>
+                            @endforeach
+                        </select>
                         <span class="text-danger">
-                            @error('self_cate_name')
-                            {{$message}}
+                            @error('user_id')
+                                {{ $message }}
                             @enderror
                         </span>
                     </div>
                 </div>
 
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Mood Type : <span
+                            class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio1" name="status" value="0" class="custom-control-input">
-                            <label class="custom-control-label" for="customRadio1">BLOCK</label>
-                        </div>
-                        <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="customRadio2" name="status" value="1"  class="custom-control-input" checked>
-                            <label class="custom-control-label" for="customRadio2">ACTIVE</label>
-                        </div>
+                        <input type="text" class="form-control" name="mood_type"
+                            value="{{ $moodTypeEditForm->mood_type }}">
                         <span class="text-danger">
-                            @error('status')
-                            {{$message}}
+                            @error('mood_type')
+                                {{ $message }}
                             @enderror
                         </span>
                     </div>
                 </div>
+
                 <div class="float-right">
-                    <input type="submit" class="btn btn-warning" value="Save">
+                    <input type="submit" class="btn btn-warning" value="Update">
                 </div>
+
             </form>
         </div>
 
