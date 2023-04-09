@@ -101,7 +101,7 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Status : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
                         <div class="custom-control custom-radio mb-5">
-                            <input type="radio" id="upcomming" name="booking_status" value="upcomming" class="custom-control-input"  @if ($appointmentsEdit->booking_status == 'upcomming') checked @endif>
+                            <input type="radio" id="upcoming" name="booking_status" value="upcomming" class="custom-control-input"  @if ($appointmentsEdit->booking_status == 'upcoming') checked @endif>
                             <label class="custom-control-label" for="upcomming">Upcomming</label>
                         </div>
                         <div class="custom-control custom-radio mb-5">

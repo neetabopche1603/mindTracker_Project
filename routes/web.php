@@ -4,6 +4,8 @@ use App\Http\Controllers\Admin\AdminAuthController;
 use App\Http\Controllers\Admin\AdminHomeController;
 use App\Http\Controllers\Admin\AppointmentController;
 use App\Http\Controllers\Admin\BrainBalanceController;
+use App\Http\Controllers\Admin\CommunitySupportGrpController;
+use App\Http\Controllers\Admin\JournalController;
 use App\Http\Controllers\Admin\MoodTrackController;
 use App\Http\Controllers\Admin\OnboardingController;
 use App\Http\Controllers\Admin\ReviewsController;
@@ -83,45 +85,45 @@ Route::prefix('admin')->group(function () {
      Route::controller(BrainBalanceController::class)->group(function () {
         // -----------------CATEGORY ROUTES-------------------
         Route::get('brainBalance-category', 'category')->name('admin.brainCategory');
-        Route::get('brainBalance-view-category/{id}', 'categoryViewForm')->name('admin.brainCateViewForm');
+        Route::get('brainBalance-category-view/{id}', 'categoryViewForm')->name('admin.brainCateViewForm');
 
-        Route::get('brainBalance-add-category', 'categoryAddForm')->name('admin.brainCateAddForm');
-        Route::post('brainBalance-add-category', 'categoryStore')->name('admin.brainCateStore');
+        Route::get('brainBalance-category-add', 'categoryAddForm')->name('admin.brainCateAddForm');
+        Route::post('brainBalance-category-add', 'categoryStore')->name('admin.brainCateStore');
 
-        Route::get('brainBalance-edit-category/{id}', 'categoryEditForm')->name('admin.brainCateEditForm');
-        Route::post('brainBalance-edit-category', 'categoryUpdate')->name('admin.brainCateUpdate');
+        Route::get('brainBalance-category-edit/{id}', 'categoryEditForm')->name('admin.brainCateEditForm');
+        Route::post('brainBalance-category-edit', 'categoryUpdate')->name('admin.brainCateUpdate');
 
-        Route::get('brainBalance-delete-category/{id}', 'categoryDelete')->name('admin.brainCategoryDelete');
-        Route::get('brainBalance-detetes-category/{ids}', 'categoryDelete')->name('admin.brainCategoryDeletes');
+        Route::get('brainBalance-category-delete/{id}', 'categoryDelete')->name('admin.brainCategoryDelete');
+        Route::get('brainBalance-category-detetes/{ids}', 'categoryDelete')->name('admin.brainCategoryDeletes');
 
 
         // -----------------SUB-CATEGORY ROUTES START-------------------
 
         Route::get('brainBalance-SubCategory', 'subCategory')->name('admin.brainSubCategory');
-        Route::get('brainBalance-view-SubCategory/{id}', 'subCategoryViewForm')->name('admin.brainSubCateViewForm');
+        Route::get('brainBalance-SubCategory-view/{id}', 'subCategoryViewForm')->name('admin.brainSubCateViewForm');
 
-        Route::get('brainBalance-add-SubCategory', 'subCategoryAddForm')->name('admin.brainSubCateAddForm');
-        Route::post('brainBalance-add-SubCategory', 'subCategoryStore')->name('admin.BrainSubCateStore');
+        Route::get('brainBalance-SubCategory-add', 'subCategoryAddForm')->name('admin.brainSubCateAddForm');
+        Route::post('brainBalance-SubCategory-add', 'subCategoryStore')->name('admin.BrainSubCateStore');
 
-        Route::get('brainBalance-edit-SubCategory/{id}', 'subCategoryEditForm')->name('admin.brainSubCateEditForm');
-        Route::post('brainBalance-edit-SubCategory', 'subCategoryUpdate')->name('admin.brainSubCateUpdate');
+        Route::get('brainBalance-SubCategory-edit/{id}', 'subCategoryEditForm')->name('admin.brainSubCateEditForm');
+        Route::post('brainBalance-SubCategory-edit', 'subCategoryUpdate')->name('admin.brainSubCateUpdate');
 
-        Route::get('brainBalance-delete-SubCategory/{id}', 'subCategoryDelete')->name('admin.brainSubCategoryDelete');
-        Route::get('brainBalance-detetes-SubCategory/{ids}', 'subCategoryDelete')->name('admin.brainSubCategoryDeletes');
+        Route::get('brainBalance-SubCategory-delete/{id}', 'subCategoryDelete')->name('admin.brainSubCategoryDelete');
+        Route::get('brainBalance-SubCategory-detetes/{ids}', 'subCategoryDelete')->name('admin.brainSubCategoryDeletes');
 
 
         // ------------------------CONTENT ROUTES START-------------------------
 
         Route::get('brainBalance-contents', 'content')->name('admin.brainBalContent');
-        Route::get('brainBalance-view-contents/{id}', 'contentViewFrom')->name('admin.contentViewFrom');
+        Route::get('brainBalance-contents-view/{id}', 'contentViewFrom')->name('admin.contentViewFrom');
 
-        Route::get('brainBalance-add-contents', 'contentAddFrom')->name('admin.brainBalContentAddFrom');
-        Route::post('brainBalance-add-contents', 'contentStore')->name('admin.brainBalContentStore');
+        Route::get('brainBalance-contents-add', 'contentAddFrom')->name('admin.brainBalContentAddFrom');
+        Route::post('brainBalance-contents-add', 'contentStore')->name('admin.brainBalContentStore');
 
-        Route::get('brainBalance-edit-contents/{id}', 'contentEditFrom')->name('admin.brainBalContentEditFrom');
-        Route::post('brainBalance-edit-contents', 'contentUpdate')->name('admin.brainBalContentUpdate');
+        Route::get('brainBalance-contents-edit/{id}', 'contentEditFrom')->name('admin.brainBalContentEditFrom');
+        Route::post('brainBalance-contents-edit', 'contentUpdate')->name('admin.brainBalContentUpdate');
 
-        Route::get('brainBalance-delete-contents/{id}', 'contentDelete')->name('admin.brainBalContentDelete');
+        Route::get('brainBalance-contents-delete/{id}', 'contentDelete')->name('admin.brainBalContentDelete');
     });       //ADMIN BRAIN BALANCE CONTROLLER CLOSEUP
 
     /*
@@ -133,15 +135,15 @@ Route::prefix('admin')->group(function () {
     Route::controller(SelfCareController::class)->group(function () {
         // -----------------SELF CARE CATEGORY ROUTES-------------------
         Route::get('selfCare-category', 'selfCategory')->name('admin.selfCategory');
-        Route::get('selfCare-view-category/{id}', 'selfCategoryView')->name('admin.selfCategoryView');
+        Route::get('selfCare-category-view/{id}', 'selfCategoryView')->name('admin.selfCategoryView');
 
-        Route::get('selfCare-add-category', 'selfCategoryAddForm')->name('admin.selfCategoryAddForm');
-        Route::post('selfCare-add-category', 'selfCategoryStore')->name('admin.selfCategoryStore');
+        Route::get('selfCare-category-add', 'selfCategoryAddForm')->name('admin.selfCategoryAddForm');
+        Route::post('selfCare-category-add', 'selfCategoryStore')->name('admin.selfCategoryStore');
 
-        Route::get('selfCare-edit-category/{id}', 'selfCategoryEditForm')->name('admin.selfCategoryEditForm');
-        Route::post('selfCare-edit-category', 'selfCategoryUpdate')->name('admin.selfCategoryUpdate');
+        Route::get('selfCare-category-edit/{id}', 'selfCategoryEditForm')->name('admin.selfCategoryEditForm');
+        Route::post('selfCare-category-edit', 'selfCategoryUpdate')->name('admin.selfCategoryUpdate');
 
-        Route::get('selfCare-delete-category/{id}', 'selfCategoryDelete')->name('admin.selfCategoryDelete');
+        Route::get('selfCare-category-delete/{id}', 'selfCategoryDelete')->name('admin.selfCategoryDelete');
 
         // -----------------SELF CARE CONTENTS ROUTES-------------------
 
@@ -251,6 +253,50 @@ Route::prefix('admin')->group(function () {
         }); // MOOD TRACK CONTROLLER CLOSEUP
 
     // -------------------------MOOD TRACK  CRUD ROUTES END--------------------
+
+
+     /*
+        |---------------------------------------------------------------------
+        | JOURNALS POSTS CONTROLLER ROUTE
+        |---------------------------------------------------------------------
+        */
+    Route::controller(JournalController::class)->group(function(){
+        Route::get('journal-posts-List','journalPosts')->name('admin.journalPostList');
+        Route::get('journal-posts-view/{id}','journalPostView')->name('admin.journalPostView');
+
+        Route::get('journal-posts-add','journalPostAddForm')->name('admin.journalPostAddForm');
+        Route::post('journal-posts-add','journalPostStore')->name('admin.journalPostStore');
+
+        Route::get('journal-posts-edit/{id}','journalPostEditForm')->name('admin.journalPostEditForm');
+        Route::post('journal-posts-edit','journalPostUpdate')->name('admin.journalPostUpdate');
+
+        Route::get('journal-posts-delete/{id}','journalPostDelete')->name('admin.journalPostDelete');
+
+    });  // JOURNALS CONTROLLER CLOSEUP
+
+    // -------------------------JOURNALS POSTS ROUTES END--------------------
+
+
+      /*
+        |---------------------------------------------------------------------
+        | COMMUNITY GROUPS CONTROLLER ROUTE
+        |---------------------------------------------------------------------
+        */
+
+    Route::controller(CommunitySupportGrpController::class)->group(function(){
+
+        Route::get('group-list','groupList')->name('admin.communityGroups');
+        Route::get('group-view/{id}','groupView')->name('admin.communityGroupView');
+
+        Route::get('group-add','groupAddForm')->name('admin.communityGroupAddForm');
+        Route::post('group-add','groupStore')->name('admin.communityGroupStore');
+
+        Route::get('group-edit/{id}','groupEditForm')->name('admin.communityGroupEditForm');
+        Route::post('group-edit','groupUpdate')->name('admin.communityGroupUpdate');
+
+        Route::get('group-delete/{id}','groupDelete')->name('admin.communityGroupDelete');
+
+    });    // COMMUNITY GROUPS CONTROLLER CLOSEUP
 
 
 });   //ADMIN PREFIX CLOSEUP

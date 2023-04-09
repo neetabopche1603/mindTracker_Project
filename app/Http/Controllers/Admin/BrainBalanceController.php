@@ -368,7 +368,8 @@ class BrainBalanceController extends Controller
             'subCategory_id' => 'required',
             'description' => 'required',
             'uploadImages.*' => 'mimes:png,jpeg,jpg,gif',
-            'uploadfiles.*' => 'required|mimes:mp4,mov,ogg,qt,audio/mpeg,mpga,wav,png,jpeg,jpg,gif|max:100000',
+            'uploadfiles' => 'required',
+            'uploadfiles.*' => 'mimes:mp4,mp3,mov,ogg,qt,audio/mpeg,mpga,wav,png,jpeg,jpg,gif|max:100000',
         ]);
         // dd($request->all());
         try {
@@ -389,9 +390,12 @@ class BrainBalanceController extends Controller
             // Upload Multiple Files
             $filesData = [];
             if ($request->hasFile('uploadfiles')) {
+                $destinationPath = '/brainBalanceFiles/files/';
+
                 $files = $request->file('uploadfiles');
                 foreach ($files as $file) {
-                    $name =  date('YmdHis') . "." . $file->getClientOriginalName();
+                    $name =  date('YmdHis') . "." . $file->getClientOriginalExtension();
+                    $file->move(public_path() . $destinationPath, $name);
                     array_push($filesData, $name);
                 }
             }
@@ -422,7 +426,7 @@ class BrainBalanceController extends Controller
             'subCategory_id' => 'required',
             'description' => 'required',
             'uploadImages.*' => 'mimes:png,jpeg,jpg,gif',
-            'uploadfiles.*' => 'mimes:png,jpeg,jpg,gif',
+            'uploadfiles.*' => 'mimes:mp4,mp3,mov,ogg,qt,audio/mpeg,mpga,wav,png,jpeg,jpg,gif|max:100000',
         ]);
 
         try {
@@ -430,10 +434,32 @@ class BrainBalanceController extends Controller
             $contentUpdate->subCategory_id = $request->subCategory_id;
             $contentUpdate->sub_cate_title = $request->sub_cate_title;
             $contentUpdate->description = $request->description;
-            $contentUpdate->images = json_encode($request->uploadImages);
-            $contentUpdate->filesData = json_encode($request->uploadfiles);
+
+            // image upload 
+            if ($request->hasFile('uploadImages')) {
+                if ($reqImg = $request->file('uploadImages')) {
+                    $destinationPath = '/brainBalanceFiles/images/';
+                    $contentImg = date('YmdHis') . "." . $reqImg->getClientOriginalExtension();
+                    $reqImg->move(public_path() . $destinationPath, $contentImg);
+                    $contentUpdate->images = $contentImg;
+                }
+            }
+
+            // Upload Multiple Files
+            $filesData = [];
+            if ($request->hasFile('uploadfiles')) {
+                $destinationPath = '/brainBalanceFiles/files/';
+
+                $files = $request->file('uploadfiles');
+                foreach ($files as $file) {
+                    $name =  date('YmdHis') . "." . $file->getClientOriginalExtension();
+                    $file->move(public_path() . $destinationPath, $name);
+                    array_push($filesData, $name);
+                }
+                $contentUpdate->files = json_encode($filesData, true);
+            }
             $contentUpdate->update();
-            return redirect()->route('admin.brainBalContent')->with('success', "Content Add Successfully Done.!");
+            return redirect()->route('admin.brainBalContent')->with('success', "Content update Successfully Done.!");
         } catch (Exception $e) {
             dd($e->getMessage());
         }

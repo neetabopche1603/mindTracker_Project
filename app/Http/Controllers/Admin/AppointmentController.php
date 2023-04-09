@@ -33,7 +33,7 @@ class AppointmentController extends Controller
 
                     ->addColumn('booking_status', function ($row) {
                        
-                        if ($row->booking_status == 'upcomming') return  '<span class="badge badge-info">Upcomming</span>';
+                        if ($row->booking_status == 'upcoming') return  '<span class="badge badge-info">Upcoming</span>';
                         if ($row->booking_status == 'cancel') return  '<span class="badge badge-danger">Cancel</span>';
                         if ($row->booking_status == 'completed') return  '<span class="badge badge-success">Completed</span>';
 

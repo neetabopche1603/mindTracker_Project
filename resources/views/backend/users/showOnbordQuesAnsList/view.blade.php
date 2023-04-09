@@ -49,9 +49,14 @@
                             <label class="col-sm-12 col-md-2 col-form-label p-4">Questions & Ans :</label>
                             <div class="col-sm-12 col-md-10 mt-4">
                                 <?php
-                                    $data = json_decode($userOnboardQuesAnsView[0]->ques_ans, true)
+                                    $data = json_decode($userOnboardQuesAnsView[0]->ques_ans);
+                                    // print_r($data);
+                                    // die();
                                     ?>
-                                <p class="text-black"> {{ $data }}</p> 
+                                    @foreach ($data as $key=>$row)
+                                        
+                                    <p class="text-black">{{ $key }} : {{ $row }}</p> 
+                                    @endforeach
                                 
                             </div>
                         </div>

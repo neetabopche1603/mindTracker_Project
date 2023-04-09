@@ -1,5 +1,5 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'Edit Content (BrainBalance)')
+@section('adminTitle', 'Edit Post')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Brain Balance > Content</li>
+                            <li class="breadcrumb-item active" aria-current="page">Journal > Edit Post</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,7 +22,7 @@
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Edit Content</h4>
+                    <h4 class="text-blue h4">Edit Post</h4>
                     <p class="mb-30">Edit To Form Details</p>
                 </div>
                 <div class="pull-right">
@@ -31,97 +31,62 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-            <form method="post" action="{{ route('admin.brainBalContentUpdate') }}" type="multfor"
-                enctype="multipart/form-data">
+            <form method="post" action="{{route('admin.journalPostUpdate')}}" type="multfor" enctype="multipart/form-data">
                 @csrf
-                <input type="hidden" name="id" value="{{ $contents->id }}">
+                <input type="hidden" name="id" value="{{$journalPostEdit->id}}">
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Sub Categories : <span
-                            class="text-danger">*</span></label>
+                    <label class="col-sm-12 col-md-2 col-form-label">User : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <select class="form-control" name="subCategory_id" id="">
-                            <option value="" selected disabled>Select SubCategory</option>
-                            @foreach ($subCategory as $subCate)
-                                <option value="{{ $subCate->id }}"
-                                    {{ $subCate->id == $contents->subCategory_id ? 'selected' : '' }}>
-                                    {{ $subCate->sub_category_name }}</b></option>
+                        <select class="form-control" name="user_id" id="">
+                            <option value="" selected disabled>Select Users</option>
+                            @foreach ($users as $user)
+                            <option value="{{$user->id}}" {{$user->id==$journalPostEdit->user_id?'selected':''}}  >{{$user->name}}</b></option>
                             @endforeach
                         </select>
                         <span class="text-danger">
-                            @error('subCategory_id')
-                                {{ $message }}
+                            @error('user_id')
+                            {{$message}}
                             @enderror
                         </span>
                     </div>
                 </div>
+              
                 <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Title :</label>
+                    <label class="col-sm-12 col-md-2 col-form-label">Posts : <span class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <input type="text" class="form-control" name="sub_cate_title"
-                            value="{{ $contents->sub_cate_title }}">
+                        <textarea cols="80" id="editor1" value="{{$journalPostEdit->post_text}}" name="post_text" value="" rows="10">{{$journalPostEdit->post_text}}</textarea>
                         <span class="text-danger">
-                            @error('sub_cate_title')
+                            @error('post_text')
                                 {{ $message }}
                             @enderror
                         </span>
                     </div>
                 </div>
 
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Description : <span
-                            class="text-danger">*</span></label>
-                    <div class="col-sm-12 col-md-10">
-                        <textarea cols="80" id="editor1" name="description" value="" rows="10">{{ $contents->description }}</textarea>
-                        <span class="text-danger">
-                            @error('description')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                    </div>
-                </div>
-
-                <div class="form-group row">
-                    <label class="col-sm-12 col-md-2 col-form-label">Upload Image :</label>
-                    <div class="col-sm-8 col-md-8 fallback">
-                        <div class="row">
-                            <div class="col-8">
-                                <input type="file" name="uploadImages" class="form-control">
-                            </div>
-                            <div class="col-4">
-                                <img src="{{ asset('brainBalanceFiles/images') }}/{{ $contents->images }}" alt="Images" srcset="" class="img-thumbnail" width="70px" height="50px">
-                            </div>
-                        </div>
-                        <span class="text-danger">
-                            @error('uploadImages')
-                                {{ $message }}
-                            @enderror
-                        </span>
-                    </div>
-                </div>
 
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Upload Files :</label>
                     <div class="col-sm-8 col-md-8 fallback">
                         <div class="row">
                             <div class="col-8">
-                                <input type="file" name="uploadfiles[]" class="form-control" multiple>
+                                <input type="file" name="post_files[]" class="form-control" multiple>
                             </div>
                             <div class="col-4">
                                 @php
-                                    $files = json_decode($contents->files);
+                                    $files = json_decode($journalPostEdit->post_files);
                                 @endphp
 
                                 @if ($files != '' || $files != null)
                                     @forelse ($files as $file)
-                                        @php $filetype = mime_content_type(public_path().'/brainBalanceFiles/files/'.$file); @endphp
+                                        @php $filetype = mime_content_type(public_path().'/journals/posts/'.$file); @endphp
 
                                         @if (strpos($filetype, 'audio') !== false)
-                                            <audio src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
+                                            <audio src="{{ asset('journals/posts') }}/{{ $file }}"
                                                 controls></audio>
                                         @elseif (strpos($filetype, 'video') !== false)
                                             <p>Video</p>
                                         @else
-                                            <img src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
+                                            <img src="{{ asset('journals/posts') }}/{{ $file }}"
                                                 alt="Files" srcset="" class="img-thumbnail" width="70px" height="50px">
                                         @endif
                                     @empty
@@ -131,7 +96,7 @@
                             </div>
                         </div>
                         <span class="text-danger">
-                            @error('uploadfiles')
+                            @error('post_files')
                                 {{ $message }}
                             @enderror
                         </span>
@@ -141,6 +106,7 @@
                 <div class="float-right">
                     <input type="submit" class="btn btn-warning" value="Update">
                 </div>
+
             </form>
         </div>
 
@@ -160,7 +126,7 @@
         // We need to turn off the automatic editor creation first.
         CKEDITOR.disableAutoInline = true;
 
-        CKEDITOR.replace('description');
+        CKEDITOR.replace('post_text');
     </script>
     <!-- CK EDITOR SCRIPT  -->
-@endpush
+    @endpush

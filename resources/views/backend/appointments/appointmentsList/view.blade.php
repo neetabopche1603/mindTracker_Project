@@ -66,8 +66,8 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Booking Status :</label>
                     <div class="col-sm-12 col-md-10">
-                        @if ($appointmentsView->booking_status== 'upcomming')
-                        <span class="badge badge-info">Upcomming</span>
+                        @if ($appointmentsView->booking_status== 'upcoming')
+                        <span class="badge badge-info">Upcoming</span>
                         @elseif ($appointmentsView->booking_status == 'cancel')
                         <span class="badge badge-danger">Cancel</span>
                         @else

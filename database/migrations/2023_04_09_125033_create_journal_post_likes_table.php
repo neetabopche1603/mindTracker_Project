@@ -13,17 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('journal_post_likes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('therapist_id')->nullable();
-            $table->string('date')->nullable();
-            $table->string('time')->nullable();
-            $table->string('booking_status')->comment("upcoming,cancel,completed")->default('upcoming');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('post_id');
+            $table->string('like');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('therapist_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('post_id')->references('id')->on('journal_posts')->onDelete('cascade');
+
         });
     }
 
@@ -34,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('journal_post_likes');
     }
 };

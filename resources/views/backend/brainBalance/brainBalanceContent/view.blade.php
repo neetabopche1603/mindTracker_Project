@@ -31,7 +31,7 @@
                             class="fa fa-backward" aria-hidden="true"></i> Back</a>
                 </div>
             </div>
-            <form method="post" action="{{ route('admin.brainBalContentUpdate') }}" type="multfor">
+            <form method="post" action="#" type="multfor" enctype="multipart/form-data">
                 @csrf
                 <input type="hidden" name="id" value="{{ $contents->id }}">
                 <div class="form-group row">
@@ -41,7 +41,8 @@
                         <select class="form-control" name="subCategory_id" id="">
                             <option value="" selected disabled>Select SubCategory</option>
                             @foreach ($subCategory as $subCate)
-                                <option value="{{ $subCate->id }}" {{ $subCate->id == $contents->subCategory_id ? 'selected' : '' }}>
+                                <option value="{{ $subCate->id }}"
+                                    {{ $subCate->id == $contents->subCategory_id ? 'selected' : '' }}>
                                     {{ $subCate->sub_category_name }}</b></option>
                             @endforeach
                         </select>
@@ -69,7 +70,8 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Description : <span
                             class="text-danger">*</span></label>
                     <div class="col-sm-12 col-md-10">
-                        <textarea cols="80" id="editor1" name="description" value="" rows="10">{{ $contents->description }}</textarea>
+                        <p>{!! $contents->description !!}</p>
+
                         <span class="text-danger">
                             @error('description')
                                 {{ $message }}
@@ -81,19 +83,37 @@
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label">Image :</label>
                     <div class="col-sm-12 col-md-10 fallback">
-                        <img src="" alt="Images" srcset="" class="img-thumbnail">
+                        <img src="{{ asset('brainBalanceFiles/images') }}/{{ $contents->images }}" alt="Images" srcset="" class="img-thumbnail" width="150px" height="70px">
                     </div>
                 </div>
 
                 <div class="form-group row">
                     <label class="col-sm-12 col-md-2 col-form-label"> Files :</label>
                     <div class="col-sm-12 col-md-10 fallback">
-                        <img src="" alt="file" srcset="" class="img-thumbnail">
-                    </div>
-                </div>
+                        <div class="col-4">
+                            @php
+                                $files = json_decode($contents->files);
+                            @endphp
 
-                <div class="float-right">
-                    <input type="submit" class="btn btn-warning" value="Update">
+                            @if ($files != '' || $files != null)
+                                @forelse ($files as $file)
+                                    @php $filetype = mime_content_type(public_path().'/brainBalanceFiles/files/'.$file); @endphp
+
+                                    @if (strpos($filetype, 'audio') !== false)
+                                        <audio src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
+                                            controls></audio>
+                                    @elseif (strpos($filetype, 'video') !== false)
+                                        <p>Video</p>
+                                    @else
+                                        <img src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
+                                            alt="Files" srcset="" class="img-thumbnail" width="150px" height="70px">
+                                    @endif
+                                @empty
+                                    <p>No files found.</p>
+                                @endforelse
+                            @endif
+                        </div>
+                    </div>
                 </div>
             </form>
         </div>

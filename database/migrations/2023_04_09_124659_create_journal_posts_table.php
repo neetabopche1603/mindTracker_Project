@@ -13,17 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('journal_posts', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('user_id')->nullable();
-            $table->unsignedBigInteger('therapist_id')->nullable();
-            $table->string('date')->nullable();
-            $table->string('time')->nullable();
-            $table->string('booking_status')->comment("upcoming,cancel,completed")->default('upcoming');
+            $table->unsignedBigInteger('user_id');
+            $table->longText('post_text');
+            $table->string('post_files');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('therapist_id')->references('id')->on('users')->onDelete('cascade');
+
         });
     }
 
@@ -34,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('journal_posts');
     }
 };
