@@ -1,5 +1,5 @@
 @extends('partials.backend.app')
-@section('adminTitle', 'Edit Category (BrainBalance)')
+@section('adminTitle', 'Users Mood Track')
 @section('container')
     <div class="min-height-200px">
         <div class="page-header">
@@ -11,7 +11,7 @@
                     <nav aria-label="breadcrumb" role="navigation">
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active" aria-current="page">Brain Balance >Category</li>
+                            <li class="breadcrumb-item active" aria-current="page">Mood Track >Edit</li>
                         </ol>
                     </nav>
                 </div>
@@ -22,7 +22,7 @@
             @include('partials.alertMessages')
             <div class="clearfix">
                 <div class="pull-left">
-                    <h4 class="text-blue h4">Edit Category</h4>
+                    <h4 class="text-blue h4">Edit Mood Track</h4>
                     <p class="mb-30">Add To Form Details</p>
                 </div>
                 <div class="pull-right">

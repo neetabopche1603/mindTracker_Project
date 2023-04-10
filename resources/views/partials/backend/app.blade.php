@@ -39,9 +39,10 @@
         href="{{ asset('backend/src/plugins/datatables/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('backend/vendors/styles/style.css') }}">
 
-{{-- Jquery Image Popup--}}
-<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-
+    {{-- Jquery Image Popup --}}
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    {{--fullcalendar CDN  --}}
+    <link rel="stylesheet" type="text/css" href="{{asset('backend/src/plugins/fullcalendar/fullcalendar.css')}}">
 
     {{-- Date Range Picker CDN --}}
     {{-- <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" /> --}}
@@ -122,8 +123,10 @@
 
     {{-- Jquery Image Popup --}}
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
-    
 
+    {{-- fullcalendar CDN --}}
+    <script src="{{ asset('backend/src/plugins/fullcalendar/fullcalendar.min.js') }}"></script>
+    <script src="{{ asset('backend/vendors/scripts/calendar-setting.js') }}"></script>
 
     <script type="text/javascript">
         $.ajaxSetup({

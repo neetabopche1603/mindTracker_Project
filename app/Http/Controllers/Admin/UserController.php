@@ -106,7 +106,8 @@ class UserController extends Controller
                 $destinationPath = '/profilesImages/';
                 $profileIMG = date('YmdHis') . "." . $reqAvatar->getClientOriginalExtension();
                 $reqAvatar->move(public_path() . $destinationPath, $profileIMG);
-                $therapistStore->avatar = $profileIMG;
+                $imgFullPath = $destinationPath . $profileIMG;
+                $therapistStore->avatar = url($imgFullPath);
             }
             $therapistStore->save();
             return redirect()->route('admin.usersList')->with('success', "Users Add Successfully Done.!");
@@ -171,7 +172,8 @@ class UserController extends Controller
 
                 $profileIMG = date('YmdHis') . "." . $reqAvatar->getClientOriginalExtension();
                 $reqAvatar->move(public_path() . $destinationPath, $profileIMG);
-                $therapistUpdate->avatar = $profileIMG;
+                $imgFullPath = $destinationPath . $profileIMG;
+                $therapistUpdate->avatar =  url($imgFullPath);;
             }
 
             $therapistUpdate->update();

@@ -124,7 +124,7 @@
                             </span>
                             </div>
                             <div class="col-4 mt-4">
-                                <img src="{{asset('profilesImages')}}/{{$therapistEdit->avatar}}" alt="Avatar" class="img-thumbnail" width="70" height="70">
+                                <img src="{{$therapistEdit->avatar}}" alt="Avatar" class="img-thumbnail" width="70" height="70">
                             </div>
                         </div>
                         

@@ -22,12 +22,12 @@ if (!session()->has('adminUser_name') && empty($admin)){
             <div class="dropdown">
                 <a class="dropdown-toggle" href="#" role="button" data-toggle="dropdown">
                     <span class="user-icon">
-                        <img src="{{ asset('backend/vendors/images/photo1.jpg') }}" alt="">
+                        <img src="{{$admin->avatar}}" alt="">
                     </span>
                     <span class="user-name">{{ $admin->name }}</span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                    <a class="dropdown-item" href="#"><i class="dw dw-user1"></i> Profile</a>
+                    <a class="dropdown-item" href="{{route('admin.adminProfilePage')}}"><i class="dw dw-user1"></i> Profile</a>
                     <a class="dropdown-item" href="{{ route('admin.logout') }}"
                         onclick="return confirm('Are you sure logout this site')"><i class="dw dw-logout"></i> Log
                         Out</a>

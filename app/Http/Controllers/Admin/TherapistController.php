@@ -16,6 +16,24 @@ class TherapistController extends Controller
         | THERAPIST CRUD FUNCTION START
         |---------------------------------------------------------------------
         */
+
+    // Deletes(destroy) Therapist Function 
+    public function therapistDestroy(Request $request)
+    {
+        try {
+            // $ids = $request->ids;
+            // User::whereIn('id', explode(",", $ids))->delete();
+            // return response()->json(['success' => "Selected users deleted successfully."]);
+            User::whereIn('id',$request->ids)->delete();
+            return redirect()->route('admin.therapist')->with('delete', 'Delete Data Successfully');
+
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+
+
     // Therapist Show List Function
     public function therapistList(Request $request)
     {
@@ -26,6 +44,13 @@ class TherapistController extends Controller
                     ->addColumn('status', function ($row) {
                         return $row->status == 1 ? '<span class="badge badge-success">Active</span>' : '<span class="badge badge-danger">Block</span>';
                     })
+
+                    ->addColumn('checkbox', function ($row) {
+                        return '<div class="dt-checkbox">
+                                    <input type="checkbox" id="example-select-all" class="sub_chk" data-id="'.$row->id.'">
+                                    <span class="dt-checkbox-label"></span>
+                                </div>';
+                    })
                     ->addColumn('action', function ($row) {
 
                         $btn = '<div class="dropdown">
@@ -33,17 +58,17 @@ class TherapistController extends Controller
                                    <i class="dw dw-more"></i>
                                </a>
                                <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
-                                   <a class="dropdown-item" href="'.route('admin.therapistViewForm',$row->id).'" class="text-warning"><i class="dw dw-eye text-warning"></i> View</a>
+                                   <a class="dropdown-item" href="' . route('admin.therapistViewForm', $row->id) . '" class="text-warning"><i class="dw dw-eye text-warning"></i> View</a>
 
-                                   <a class="dropdown-item" href="'.route('admin.therapistEditForm',$row->id).'"><i class="dw dw-edit2 text-success"></i> Edit</a>
+                                   <a class="dropdown-item" href="' . route('admin.therapistEditForm', $row->id) . '"><i class="dw dw-edit2 text-success"></i> Edit</a>
 
-                                   <a class="dropdown-item" href="'.route('admin.therapistDelete',$row->id).'" onclick="return confirm(`Are you sure delete this data`)"><i class="dw dw-delete-3 text-danger"></i> Delete</a>
+                                   <a class="dropdown-item" href="' . route('admin.therapistDelete', $row->id) . '" onclick="return confirm(`Are you sure delete this data`)"><i class="dw dw-delete-3 text-danger"></i> Delete</a>
                                </div>
                            </div>';
 
                         return $btn;
                     })
-                    ->rawColumns(['action', 'status'])
+                    ->rawColumns(['action', 'status','checkbox'])
                     ->make(true);
             }
             return view('backend.therapist.therapistList.index');
@@ -106,7 +131,8 @@ class TherapistController extends Controller
                 $destinationPath = '/profilesImages/';
                 $profileIMG = date('YmdHis') . "." . $reqAvatar->getClientOriginalExtension();
                 $reqAvatar->move(public_path() . $destinationPath, $profileIMG);
-                $therapistStore->avatar = $profileIMG;
+                $imgFullPath = $destinationPath . $profileIMG;
+                $therapistStore->avatar = url($imgFullPath);
             }
             $therapistStore->save();
             return redirect()->route('admin.therapist')->with('success', "Therapist Add Successfully Done.!");
@@ -132,10 +158,8 @@ class TherapistController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required',
-            'email' => 'required|email|unique:users,email,'.$request->id,
-            'password' => 'required| min:6| max:8 |confirmed',
-            'password_confirmation' => 'required| min:6',
-            'mobile_number' => 'required|min:11|numeric|unique:users,mobile_number,'.$request->id,
+            'email' => 'required|email|unique:users,email,' . $request->id,
+            'mobile_number' => 'required|min:11|numeric|unique:users,mobile_number,' . $request->id,
             'gender' => 'required',
             'bio' => 'required',
             'ocupation' => 'required',
@@ -171,7 +195,8 @@ class TherapistController extends Controller
 
                 $profileIMG = date('YmdHis') . "." . $reqAvatar->getClientOriginalExtension();
                 $reqAvatar->move(public_path() . $destinationPath, $profileIMG);
-                $therapistUpdate->avatar = $profileIMG;
+                $imgFullPath = $destinationPath . $profileIMG;
+                $therapistUpdate->avatar = url($imgFullPath);;
             }
 
             $therapistUpdate->update();
@@ -190,6 +215,8 @@ class TherapistController extends Controller
             dd($e->getMessage());
         }
     }
+
+
 
     // -------------------------THERAPIST CRUD END-------------------------
 }

@@ -22,9 +22,20 @@ class MoodTrackController extends Controller
     {
         try {
             if ($request->ajax()) {
+
                 $moodTypes = DB::table('mood_tracks')->join('users','users.id','=','mood_tracks.user_id')->select('mood_tracks.*','users.id as userId','users.name as user_name')->where('status',1)->get();
 
                 return Datatables::of($moodTypes)
+                ->addIndexColumn()
+
+                ->editColumn('created_at', function ($row) {
+                    return \Carbon\Carbon::parse($row->created_at)->format('d F Y H:i:s');
+                })
+
+                ->editColumn('updated_at', function ($row) {
+                    return \Carbon\Carbon::parse($row->updated_at)->isoFormat('D MMMM YYYY HH:mm:ss');
+                })
+
                     ->addColumn('action', function ($row) {
 
                         $btn = '<div class="dropdown">
@@ -41,7 +52,7 @@ class MoodTrackController extends Controller
 
                         return $btn;
                     })
-                    ->rawColumns(['action'])
+                    ->rawColumns(['action','created_at','updated_at'])
                     ->make(true);
             }
             return view('backend.moodTrack.index');

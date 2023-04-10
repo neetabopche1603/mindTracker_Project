@@ -46,6 +46,12 @@ Route::prefix('admin')->group(function () {
     // ==============ADMIN HOME CONTROLLER ROUTE START================
     Route::controller(AdminHomeController::class)->group(function () {
         Route::get('dashboard', 'dashboard')->name('admin.dashboard');
+
+       // ADMIN PROFILE PAGE ROUTE
+       Route::get('profiles', 'adminProfilePage')->name('admin.adminProfilePage');
+       Route::post('profiles-update', 'adminprofileUpdate')->name('admin.adminprofileUpdate');
+       Route::post('profiles-update-pass', 'adminChangePassword')->name('admin.adminChangePassword');
+
     });   //ADMIN HOME CONTROLLER CLOSEUP
 
     //==============Onboarding Questions Route Start==============
@@ -94,7 +100,7 @@ Route::prefix('admin')->group(function () {
         Route::post('brainBalance-category-edit', 'categoryUpdate')->name('admin.brainCateUpdate');
 
         Route::get('brainBalance-category-delete/{id}', 'categoryDelete')->name('admin.brainCategoryDelete');
-        Route::get('brainBalance-category-detetes/{ids}', 'categoryDelete')->name('admin.brainCategoryDeletes');
+        Route::get('brainBalance-category-detetes/{ids}', 'multipleDeletecontentFiles')->name('admin.multipleDeletecontentFiles');
 
 
         // -----------------SUB-CATEGORY ROUTES START-------------------
@@ -122,6 +128,9 @@ Route::prefix('admin')->group(function () {
 
         Route::get('brainBalance-contents-edit/{id}', 'contentEditFrom')->name('admin.brainBalContentEditFrom');
         Route::post('brainBalance-contents-edit', 'contentUpdate')->name('admin.brainBalContentUpdate');
+
+        // multiple image delete update time
+        Route::post('brainBalance-filesDel', 'contentUpdateTimeDeleteImg')->name('admin.contentUpdateTimeDeleteImg');
 
         Route::get('brainBalance-contents-delete/{id}', 'contentDelete')->name('admin.brainBalContentDelete');
     });       //ADMIN BRAIN BALANCE CONTROLLER CLOSEUP
@@ -168,6 +177,7 @@ Route::prefix('admin')->group(function () {
         Route::post('therapist-add', 'therapistUpdate')->name('admin.therapistUpdate');
 
         Route::get('therapist-delete/{id}', 'therapistDelete')->name('admin.therapistDelete');
+        Route::get('therapist-deletes', 'therapistDestroy')->name('admin.therapistDestroy');
         // -------------------------THERAPIST CRUD ROUTES END--------------------
 
     });  //ADMIN THERAPIST CONTROLLER CLOSEUP
@@ -190,7 +200,7 @@ Route::prefix('admin')->group(function () {
         Route::get('appointments-edit/{id}', 'appointmentsEditForm')->name('admin.appointmentsEditForm');
         Route::post('appointments-edit', 'appointmentsUpdate')->name('admin.appointmentsUpdate');
 
-        Route::get('appointments-delete/{id}', 'appointmentsDelete')->name('admin.appointmentsDelete');
+        Route::post('appointments-delete/{id}', 'appointmentsDelete')->name('admin.appointmentsDelete');
 
         // -------------------------------APPOINTMENTS ROUTES END-------------------
 
@@ -243,7 +253,7 @@ Route::prefix('admin')->group(function () {
         |---------------------------------------------------------------------
         */
         Route::controller(MoodTrackController::class)->group(function(){
-            Route::get('user-moodtype','moodtype')->name('admin.moodTypeList');
+            Route::get('moodtype','moodtype')->name('admin.moodTypeList');
 
             Route::get('moodtype-edit/{id}','moodTypeEditForm')->name('admin.moodTypeEditForm');
             Route::post('moodtype-edit','moodTypeUpdate')->name('admin.moodTypeUpdate');
@@ -271,6 +281,15 @@ Route::prefix('admin')->group(function () {
         Route::post('journal-posts-edit','journalPostUpdate')->name('admin.journalPostUpdate');
 
         Route::get('journal-posts-delete/{id}','journalPostDelete')->name('admin.journalPostDelete');
+
+        // ----------------------JOURNALIST DAIRY ROUTES START------------------------------------
+        Route::get('journalist','journalists')->name('admin.journalists');
+        Route::get('journalist-view/{id}','journalistView')->name('admin.journalistView');
+
+        Route::get('journalist-delete/{id}','journalistDelete')->name('admin.journalistDelete');
+
+        // ----------------------JOURNALIST DAIRY ROUTES END--------------------------------------
+
 
     });  // JOURNALS CONTROLLER CLOSEUP
 

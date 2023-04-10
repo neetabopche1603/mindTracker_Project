@@ -68,14 +68,22 @@ class AppointmentController extends Controller
     public function appointmentsView($id)
     {
         try {
-            $users = User::where([
-                'role' => 0,
-                'status' => 1,
-            ])->get();
+            // $users = User::where([
+            //     'role' => 0,
+            //     'status' => 1,
+            // ])->get();
+            // $appointmentsView = Appointment::find($id);
+            // $therapist = User::where(['role' => 1, 'status' => 1])->get();
+            
+            $appointmentsView =    DB::table('appointments')
+            ->join('users as u1', 'u1.id', '=', 'appointments.user_id')
+            ->join('users as u2', 'u2.id', '=', 'appointments.therapist_id')->where('appointments.id',$id)
+            ->select('appointments.*', 'u1.id as user_id', 'u1.name as user_name', 'u2.id as therapist_id', 'u2.name as therapist_name')
+            ->get();
 
-            $therapist = User::where(['role' => 1, 'status' => 1])->get();
-            $appointmentsView = Appointment::find($id);
-            return view('backend.appointments.appointmentsList.view', compact('appointmentsView', 'users', 'therapist'));
+
+
+            return view('backend.appointments.appointmentsList.view', compact('appointmentsView'));
         } catch (Exception $e) {
             dd($e->getMessage());
         }

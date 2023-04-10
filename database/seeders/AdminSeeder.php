@@ -22,6 +22,7 @@ class AdminSeeder extends Seeder
             'number' => '8989898989',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('123456'),
+            'address' => 'BALAGHAT'
         ]);
     }
 }

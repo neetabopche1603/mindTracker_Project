@@ -30,7 +30,7 @@
                         {{-- <a href="modal" data-toggle="modal" data-target="#modal" class="edit-avatar"><i class="fa fa-pencil"></i></a> --}}
                         <a href="modal" data-toggle="modal" data-target="#modal" >
 
-                        <img src="{{asset('profilesImages')}}/{{$therapistView->avatar}}" alt="Avatar" class="avatar-photo img-thumbnail" width="100" height="80">
+                        <img src="{{$therapistView->avatar}}" alt="Avatar" class="avatar-photo img-thumbnail" width="100" height="80">
 
                     </a>
                         <div class="modal fade" id="modal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
@@ -39,7 +39,7 @@
                                     <div class="modal-body pd-5">
                                         <div class="img-container text-center">
                                             <h5 class="mb-20 mt-2 h5 text-blue">Profile Picture</h5>
-                                            <img id="image" src="{{asset('profilesImages')}}/{{$therapistView->avatar}}" alt="Picture" width="350" height="150">
+                                            <img id="image" src="{{$therapistView->avatar}}" alt="Picture" width="350" height="150">
                                         </div>
                                     </div>
                                     <div class="modal-footer">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Journalist;
 use App\Models\JournalPost;
 use App\Models\User;
 use Exception;
@@ -63,13 +64,13 @@ class JournalController extends Controller
     public function journalPostView($id)
     {
         try {
-            $users = User::where(['role'=>0,'status'=>1])->get();
+            $users = User::where(['role' => 0, 'status' => 1])->get();
             $journalPostView =  DB::table('journal_posts')
-            ->join('users', 'users.id', '=', 'journal_posts.user_id')
-            ->leftJoin(DB::raw('(SELECT post_id, COUNT(id) as likesCount FROM journal_post_likes GROUP BY post_id) as likes'), 'likes.post_id', '=', 'journal_posts.id')
-            ->where('users.status', 1)->where('journal_posts.id',$id)
-            ->select('journal_posts.*', 'users.id as userId', 'users.name as user_name', DB::raw('IFNULL(likes.likesCount, 0) as likesCount'))
-            ->first();
+                ->join('users', 'users.id', '=', 'journal_posts.user_id')
+                ->leftJoin(DB::raw('(SELECT post_id, COUNT(id) as likesCount FROM journal_post_likes GROUP BY post_id) as likes'), 'likes.post_id', '=', 'journal_posts.id')
+                ->where('users.status', 1)->where('journal_posts.id', $id)
+                ->select('journal_posts.*', 'users.id as userId', 'users.name as user_name', DB::raw('IFNULL(likes.likesCount, 0) as likesCount'))
+                ->first();
 
             return  view('backend.journal.journal_post.view', compact('users', 'journalPostView'));
         } catch (Exception $e) {
@@ -81,8 +82,8 @@ class JournalController extends Controller
     public function journalPostAddForm()
     {
         try {
-            $users = User::where(['role'=>0,'status'=>1])->get();
-            return view('backend.journal.journal_post.add',compact('users'));
+            $users = User::where(['role' => 0, 'status' => 1])->get();
+            return view('backend.journal.journal_post.add', compact('users'));
         } catch (Exception $e) {
             dd($e->getMessage());
         }
@@ -126,7 +127,7 @@ class JournalController extends Controller
     public function journalPostEditForm($id)
     {
         try {
-            $users = User::where(['role'=>0,'status'=>1])->get();
+            $users = User::where(['role' => 0, 'status' => 1])->get();
             $journalPostEdit = JournalPost::find($id);
             return  view('backend.journal.journal_post.edit', compact('users', 'journalPostEdit'));
         } catch (Exception $e) {
@@ -184,4 +185,69 @@ class JournalController extends Controller
 
     //  ----------------------------journal Post Function End----------------------------------
 
+
+    /*
+        |---------------------------------------------------------------------
+        |  JOURNALIST DAIARY FUNCTION START
+        |---------------------------------------------------------------------
+        */
+
+    // JOURNALIST DAIRY LIST FUNCTION
+
+    public function journalists(Request $request)
+    {
+        try {
+            if ($request->ajax()) {
+
+                $data = DB::table('journalists')->join('users', 'users.id', '=', 'journalists.user_id')->where('users.role', 0)->select('journalists.*', 'users.id as userId', 'users.name as user_name')->get();
+
+                return Datatables::of($data)
+                    ->addIndexColumn()
+            
+                    ->addColumn('action', function ($row) {
+
+                        $btn = '<div class="dropdown">
+                               <a class="btn btn-link font-24 p-0 line-height-1 no-arrow dropdown-toggle" href="#" role="button" data-toggle="dropdown">
+                                   <i class="dw dw-more"></i>
+                               </a>
+                               <div class="dropdown-menu dropdown-menu-right dropdown-menu-icon-list">
+                                   <a class="dropdown-item" href="' . route('admin.journalistView', $row->id) . '" class="text-warning"><i class="dw dw-eye text-warning"></i> View</a>
+
+                                   <a class="dropdown-item" href="' . route('admin.journalistDelete', $row->id) . '" onclick="return confirm(`Are you sure delete this data`)"><i class="dw dw-delete-3 text-danger"></i> Delete</a>
+                               </div>
+                           </div>';
+
+                        return $btn;
+                    })
+                    ->rawColumns(['action'])
+                    ->make(true);
+            }
+            return view('backend.journal.journalistdiary.index');
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    // JOURNALIST DAIRY View FUNCTION
+    public function journalistView($id)
+    {
+        try {
+            $journalistView = DB::table('journalists')->join('users', 'users.id', '=', 'journalists.user_id')->where('users.role', 0)->select('journalists.*', 'users.id as userId', 'users.name as user_name')->get();
+
+            return view('backend.journal.journalistdiary.view',compact('journalistView'));
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
+
+    // JOURNALIST DAIRY DELETE FUNCTION
+    public function journalistDelete($id)
+    {
+        try {
+            Journalist::find($id)->delete();
+            return redirect()->route('admin.journalists')->with('delete', "Journalist Delete Succssfully Done !");
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
 }

@@ -88,7 +88,7 @@
                                 <input type="file" name="uploadImages" class="form-control">
                             </div>
                             <div class="col-4">
-                                <img src="{{ asset('brainBalanceFiles/images') }}/{{ $contents->images }}" alt="Images" srcset="" class="img-thumbnail" width="70px" height="50px">
+                                <img src="{{ $contents->images }}" alt="Images" srcset="" class="img-thumbnail" width="70px" height="50px">
                             </div>
                         </div>
                         <span class="text-danger">
@@ -103,26 +103,29 @@
                     <label class="col-sm-12 col-md-2 col-form-label">Upload Files :</label>
                     <div class="col-sm-8 col-md-8 fallback">
                         <div class="row">
-                            <div class="col-8">
+                            <div class="col-sm-6 col-md-10">
                                 <input type="file" name="uploadfiles[]" class="form-control" multiple>
-                            </div>
-                            <div class="col-4">
+                          
                                 @php
                                     $files = json_decode($contents->files);
                                 @endphp
-
                                 @if ($files != '' || $files != null)
-                                    @forelse ($files as $file)
+                                    @forelse ($files as $key=>$file)
                                         @php $filetype = mime_content_type(public_path().'/brainBalanceFiles/files/'.$file); @endphp
 
                                         @if (strpos($filetype, 'audio') !== false)
                                             <audio src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
                                                 controls></audio>
+                                                <a href="javascript:void(0)" class="text-danger imgRemove" data-key="{{$key}}" data-id="{{$contents->id}}" data-name="{{$file}}"><i class="fa fa-times"></i></a>
+
+
                                         @elseif (strpos($filetype, 'video') !== false)
                                             <p>Video</p>
+                                            <a href="javascript:void(0)" class="text-danger imgRemove" data-key="{{$key}}" data-id="{{$contents->id}}" data-name="{{$file}}"><i class="fa fa-times"></i></a>
                                         @else
                                             <img src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
                                                 alt="Files" srcset="" class="img-thumbnail" width="70px" height="50px">
+                                                <a href="javascript:void(0)" class="text-danger imgRemove" data-key="{{$key}}" data-id="{{$contents->id}}" data-name="{{$file}}"><i class="fa fa-times"></i></a>
                                         @endif
                                     @empty
                                         <p>No files found.</p>
@@ -137,7 +140,6 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="float-right">
                     <input type="submit" class="btn btn-warning" value="Update">
                 </div>
@@ -163,4 +165,31 @@
         CKEDITOR.replace('description');
     </script>
     <!-- CK EDITOR SCRIPT  -->
+
+    <script>
+         $(document).ready(function() {
+        $('.imgRemove').on('click', function() {
+            let cmr = confirm('Are you sure delete this image.');
+            if (cmr) {
+                let id = $(this).data('id')
+                let imagename = $(this).data('name')
+                let key = $(this).data('key')
+                $.ajax({
+                    type: "post",
+                    url: "{{route('admin.contentUpdateTimeDeleteImg')}}",
+                    data: {
+                        'id': id,
+                        'imagename': imagename
+                    },
+                    success: function(response) {
+                        if (response.msg === 'success') {
+                            console.log(`#img${key}`)
+                            $(`#img${key}`).remove();
+                        }
+                    }
+                });
+            }
+        })
+    });
+    </script>
 @endpush

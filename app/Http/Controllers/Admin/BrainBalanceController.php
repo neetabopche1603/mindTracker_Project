@@ -383,7 +383,9 @@ class BrainBalanceController extends Controller
                     $destinationPath = '/brainBalanceFiles/images/';
                     $contentImg = date('YmdHis') . "." . $reqImg->getClientOriginalExtension();
                     $reqImg->move(public_path() . $destinationPath, $contentImg);
-                    $contentStore->images = $contentImg;
+
+                    $imageFullPath = $destinationPath . $contentImg;
+                    $contentStore->images = url($imageFullPath);
                 }
             }
 
@@ -419,6 +421,7 @@ class BrainBalanceController extends Controller
             dd($e->getMessage());
         }
     }
+
     // Content Update Function
     public function contentUpdate(Request $request)
     {
@@ -465,6 +468,40 @@ class BrainBalanceController extends Controller
         }
     }
 
+
+    // Update Time Delete Multiple Files
+    public function contentUpdateTimeDeleteImg(Request $request)
+    {
+        try {
+            $deleteIMG = BrainBalanceContents::find($request->id);
+            if ($reqImg = $request->uploadfiles) {
+                $destination = '/brainBalanceFiles/files/';
+
+                $oldImages = json_decode($deleteIMG->files);
+                // Delete Image on folder
+                if (!empty($oldImages)) {
+                    foreach ($oldImages as $oldImg) {
+                        // dd(public_path().$destination.$oldImg);
+                        if ($oldImg == $reqImg) {
+                            if (file_exists(public_path() . $destination . $oldImg)) {
+                                unlink(public_path() . $destination . $oldImg);
+                            }
+                        }
+                    }
+                }
+                // Delete Image on folder End
+                if (($key = array_search($reqImg, $oldImages)) !== false) {
+                    unset($oldImages[$key]);
+                }
+                $newArr = array_values($oldImages);
+                $deleteIMG->files = json_encode($newArr);
+                $deleteIMG->update();
+                return response()->json(["msg" => 'success']);
+            }
+        } catch (Exception $e) {
+            dd($e->getMessage());
+        }
+    }
     // Content Delete Function
     public function contentDelete($id)
     {
