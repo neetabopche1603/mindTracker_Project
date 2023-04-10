@@ -177,7 +177,7 @@ Route::prefix('admin')->group(function () {
         Route::post('therapist-add', 'therapistUpdate')->name('admin.therapistUpdate');
 
         Route::get('therapist-delete/{id}', 'therapistDelete')->name('admin.therapistDelete');
-        Route::get('therapist-deletes', 'therapistDestroy')->name('admin.therapistDestroy');
+        Route::post('therapist-deletes', 'therapistDestroy')->name('admin.therapistDestroy');
         // -------------------------THERAPIST CRUD ROUTES END--------------------
 
     });  //ADMIN THERAPIST CONTROLLER CLOSEUP
@@ -314,6 +314,18 @@ Route::prefix('admin')->group(function () {
         Route::post('group-edit','groupUpdate')->name('admin.communityGroupUpdate');
 
         Route::get('group-delete/{id}','groupDelete')->name('admin.communityGroupDelete');
+
+        // Community Group Posts
+        Route::get('community-posts-List','communityPostsList')->name('admin.communityPostsList');
+        Route::get('community-posts-view/{id}','postPostView')->name('admin.postPostView');
+
+        Route::get('community-posts-add','communityPostAddForm')->name('admin.communityPostAddForm');
+        Route::post('community-posts-add','communityPostStore')->name('admin.communityPostStore');
+
+        Route::get('community-posts-edit/{id}','communityPostEditForm')->name('admin.communityPostEditForm');
+        Route::post('community-posts-edit','communityPostUpdate')->name('admin.communityPostUpdate');
+
+        Route::get('community-posts-delete/{id}','communityPostDelete')->name('admin.communityPostDelete');
 
     });    // COMMUNITY GROUPS CONTROLLER CLOSEUP
 

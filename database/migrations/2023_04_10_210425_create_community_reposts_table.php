@@ -13,15 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('journal_reposts', function (Blueprint $table) {
+        Schema::create('community_reposts', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('post_id');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('post_id')->references('id')->on('journal_posts')->onDelete('cascade');
-
+            $table->foreign('post_id')->references('id')->on('community_group_posts')->onDelete('cascade');
         });
     }
 
@@ -32,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('journal_reposts');
+        Schema::dropIfExists('community_reposts');
     }
 };

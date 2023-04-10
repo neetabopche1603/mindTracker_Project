@@ -88,7 +88,8 @@
                                 <input type="file" name="uploadImages" class="form-control">
                             </div>
                             <div class="col-4">
-                                <img src="{{ $contents->images }}" alt="Images" srcset="" class="img-thumbnail" width="70px" height="50px">
+                                <img src="{{ $contents->images }}" alt="Images" srcset="" class="img-thumbnail"
+                                    width="70px" height="50px">
                             </div>
                         </div>
                         <span class="text-danger">
@@ -105,32 +106,43 @@
                         <div class="row">
                             <div class="col-sm-6 col-md-10">
                                 <input type="file" name="uploadfiles[]" class="form-control" multiple>
-                          
-                                @php
-                                    $files = json_decode($contents->files);
-                                @endphp
-                                @if ($files != '' || $files != null)
-                                    @forelse ($files as $key=>$file)
-                                        @php $filetype = mime_content_type(public_path().'/brainBalanceFiles/files/'.$file); @endphp
+                                <div id="filesData" style="display: flex;gap:10px;">
+                                    @php
+                                        $files = json_decode($contents->files);
+                                    @endphp
+                                    @if ($files != '' || $files != null)
+                                        @forelse ($files as $key=>$file)
+                                            @php $filetype = mime_content_type(public_path().'/brainBalanceFiles/files/'.$file); @endphp
 
-                                        @if (strpos($filetype, 'audio') !== false)
-                                            <audio src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
-                                                controls></audio>
-                                                <a href="javascript:void(0)" class="text-danger imgRemove" data-key="{{$key}}" data-id="{{$contents->id}}" data-name="{{$file}}"><i class="fa fa-times"></i></a>
-
-
-                                        @elseif (strpos($filetype, 'video') !== false)
-                                            <p>Video</p>
-                                            <a href="javascript:void(0)" class="text-danger imgRemove" data-key="{{$key}}" data-id="{{$contents->id}}" data-name="{{$file}}"><i class="fa fa-times"></i></a>
-                                        @else
-                                            <img src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
-                                                alt="Files" srcset="" class="img-thumbnail" width="70px" height="50px">
-                                                <a href="javascript:void(0)" class="text-danger imgRemove" data-key="{{$key}}" data-id="{{$contents->id}}" data-name="{{$file}}"><i class="fa fa-times"></i></a>
-                                        @endif
-                                    @empty
-                                        <p>No files found.</p>
-                                    @endforelse
-                                @endif
+                                            @if (strpos($filetype, 'audio') !== false)
+                                                <div id="img{{ $key }}" style="border:1px solid black">
+                                                    <audio
+                                                        src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
+                                                        controls></audio>
+                                                    <a href="javascript:void(0)" class="text-danger imgRemove"
+                                                        data-key="{{ $key }}" data-id="{{ $contents->id }}"
+                                                        data-name="{{ $file }}"><i class="fa fa-times"></i></a>
+                                                </div>
+                                            @elseif (strpos($filetype, 'video') !== false)
+                                                <p>Video</p>
+                                                <a href="javascript:void(0)" class="text-danger imgRemove"
+                                                    data-key="{{ $key }}" data-id="{{ $contents->id }}"
+                                                    data-name="{{ $file }}"><i class="fa fa-times"></i></a>
+                                            @else
+                                                <div id="img{{ $key }}" style="border:1px solid black">
+                                                    <img src="{{ asset('brainBalanceFiles/files') }}/{{ $file }}"
+                                                        alt="Files" srcset="" class="img-thumbnail"
+                                                        width="70px" height="50px">
+                                                    <a href="javascript:void(0)" class="text-danger imgRemove"
+                                                        data-key="{{ $key }}" data-id="{{ $contents->id }}"
+                                                        data-name="{{ $file }}"><i class="fa fa-times"></i></a>
+                                                </div>
+                                            @endif
+                                        @empty
+                                            <p>No files found.</p>
+                                        @endforelse
+                                    @endif
+                                </div>
                             </div>
                         </div>
                         <span class="text-danger">
@@ -167,29 +179,30 @@
     <!-- CK EDITOR SCRIPT  -->
 
     <script>
-         $(document).ready(function() {
-        $('.imgRemove').on('click', function() {
-            let cmr = confirm('Are you sure delete this image.');
-            if (cmr) {
-                let id = $(this).data('id')
-                let imagename = $(this).data('name')
-                let key = $(this).data('key')
-                $.ajax({
-                    type: "post",
-                    url: "{{route('admin.contentUpdateTimeDeleteImg')}}",
-                    data: {
-                        'id': id,
-                        'imagename': imagename
-                    },
-                    success: function(response) {
-                        if (response.msg === 'success') {
-                            console.log(`#img${key}`)
-                            $(`#img${key}`).remove();
+        $(document).ready(function() {
+            $('.imgRemove').on('click', function() {
+                let cmr = confirm('Are you sure delete this image.');
+                if (cmr) {
+                    let id = $(this).data('id')
+                    let imagename = $(this).data('name')
+                    let key = $(this).data('key')
+                    $.ajax({
+                        type: "post",
+                        url: "{{ route('admin.contentUpdateTimeDeleteImg') }}",
+                        data: {
+                            'id': id,
+                            'imagename': imagename
+                        },
+                        success: function(response) {
+                            // console.log(response);
+                            if (response.msg === 'success') {
+                                // console.log(`#img${key}`)
+                                $(`#img${key}`).remove();
+                            }
                         }
-                    }
-                });
-            }
-        })
-    });
+                    });
+                }
+            })
+        });
     </script>
 @endpush

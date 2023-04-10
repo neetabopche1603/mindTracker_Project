@@ -120,6 +120,10 @@
                                 class="{{ request()->is('admin/group-list') ? 'active' : '' }}">Groups
                             </a></li>
 
+                            <li><a href="{{ route('admin.communityPostsList') }}"
+                                class="{{ request()->is('admin/community-posts-List*') ? 'active' : '' }}">Post
+                            </a></li>
+
                         {{-- <li><a class="{{ request()->is('admin/valuation/show-archive-leads') ? 'active' : '' }}" href="{{route('admin.getArchiveLeads')}}">All Archive Leads</a></li> --}}
                     </ul>
                 </li>

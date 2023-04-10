@@ -25,10 +25,12 @@ class TherapistController extends Controller
             // User::whereIn('id', explode(",", $ids))->delete();
             // return response()->json(['success' => "Selected users deleted successfully."]);
             User::whereIn('id',$request->ids)->delete();
-            return redirect()->route('admin.therapist')->with('delete', 'Delete Data Successfully');
+            return response()->json(["msg"=>"success"]);
+            // return redirect()->route('admin.therapist')->with('delete', 'Delete Data Successfully');
 
         } catch (Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
+            return response()->json(["msg"=>"faild"]);
         }
     }
 

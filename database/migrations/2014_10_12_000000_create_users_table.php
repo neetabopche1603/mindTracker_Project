@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('avatar')->nullable();
             $table->longText('bio')->nullable();
             $table->string('ocupation')->nullable();
-            $table->tinyInteger('gender')->nullable()->comment('male,female,other');
+            $table->string('gender')->nullable()->comment('male,female,other');
             $table->string('mobile_number')->nullable();
             $table->longText('address')->nullable();
             $table->tinyInteger('status')->comment('1=unblock, 0=block')->default(1);

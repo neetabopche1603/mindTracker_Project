@@ -69,7 +69,8 @@
                 ajax: "{{ route('admin.therapist') }}",
                 columns: [{
                         data: 'checkbox',
-                        name: 'checkbox'
+                        name: 'checkbox',
+                        orderable: false,
                     },
                     {
                         data: 'id',
@@ -97,6 +98,14 @@
 
                 initComplete: function() {
                     // Custom JS Load After Yajra Table
+                    $('#master').on('click', function(e) {
+                        if ($(this).is(':checked', true)) {
+                            $(".sub_chk").prop('checked', true);
+                        } else {
+                            $(".sub_chk").prop('checked', false);
+                        }
+                    });
+
                     $(document).on('click', '#deleteAll', function(e) {
                         e.preventDefault();
                         var allVals = [];
@@ -127,6 +136,7 @@
                                                 'Your data has been deleted.',
                                                 'success'
                                             );
+                                            $("#master").is(':checked', false)
                                             table
                                         .draw(); // Redraw the table to update the data
                                         }

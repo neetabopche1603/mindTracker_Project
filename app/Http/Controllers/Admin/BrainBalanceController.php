@@ -474,7 +474,7 @@ class BrainBalanceController extends Controller
     {
         try {
             $deleteIMG = BrainBalanceContents::find($request->id);
-            if ($reqImg = $request->uploadfiles) {
+            if ($reqImg = $request->imagename) {
                 $destination = '/brainBalanceFiles/files/';
 
                 $oldImages = json_decode($deleteIMG->files);
@@ -499,7 +499,8 @@ class BrainBalanceController extends Controller
                 return response()->json(["msg" => 'success']);
             }
         } catch (Exception $e) {
-            dd($e->getMessage());
+            return response()->json(["msg" => 'faild']);
+            // dd($e->getMessage());
         }
     }
     // Content Delete Function
